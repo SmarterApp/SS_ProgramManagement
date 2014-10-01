@@ -1,0 +1,216 @@
+
+<style>
+    .section label { width:150px; }
+    input.tenant-search { width:auto; }
+    select { max-width:75%; }
+    .addUser { padding:8px; border:1px solid #444444; background-color:#dbdbdb; }
+    .entryModeSection { border:1px solid #444444; width:30%; float:left; text-align:left; padding:10px;margin:2px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 0 0 3px 3px #d1d3d4;
+    -webkit-box-shadow: 0 0 3px 3px #d1d3d4;
+    box-shadow: 0 0 3px 3px #d1d3d4;
+    /*background: rgb(255,255,255);  Old browsers */
+    }
+    .detailSection { margin:3px; width:45%; float:left; text-align:left; padding:4px; border:1px solid #444444; 
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 0 0 3px 3px #d1d3d4;
+    -webkit-box-shadow: 0 0 3px 3px #d1d3d4;
+    box-shadow: 0 0 3px 3px #d1d3d4;
+   /* background: rgb(255,255,255);  Old browsers */
+    }
+    .subtext { font-weight: bold; }
+    .clear { clear: both; }
+    li { text-align:left; }
+</style>
+
+    <div class="secContent">
+<div class="fieldGroup">     
+<div class="boxWrap setup2">
+<div class="boxTitle"><h2 tabindex="-1">Example Skinnable UI</h2></div>
+
+<h5 tabindex="-1">How it all works</h5>
+ <p class="informational">To demonstrate the capabilities of program management's customizable UI features we have created this example page.  The left hand section has controls to feed program management the information needed to provide the correct asset group for a logged in user.
+ <p class="informational">Eventually users will be setup in the SSO component.   Each user will have "Entity" information that they are associated with. 
+ <br>  Example: User johndoe would could have the following attributes (STATE=WISCONSIN, DISTRICT= Madison Metropolitan School District) 
+ <p class="informational">"Entity" Domain lists (list of states, list of districts, list of institutions) for each entity will eventually come from the test registration system. Any Entity can purchase tenancy within the system.</p> 
+ <p class="informational">   
+       Using the user's attributes (specifically the entity attributes,) the tenant service will construct a tenancy chain for the given user.   A tenancy chain is an ordered list of tenants defined in the system. 
+ </p>
+ <p class="informational"> 
+  Things to note:
+  </p>
+  <ol>
+   <li>Not all entities will purchase tenancy within the system.</li>
+   <li>Not all tenants will have an asset group defined for each component.</li>
+   <li>Not all components will support a customizable user interface.</li>
+  </ol>
+     
+<h5 tabindex="-1">Working Example</h5>     
+<div class="entryModeSection">
+         
+     <div class="section">
+        <b>Entry Mode:</b>
+        <div><input tabindex="0" type="radio" alt="Mock Users" data-ng-model="userInputMode" value="true" />Select Mock Users </div>
+        <div><input tabindex="0" type="radio" alt="User Attributes" data-ng-model="userInputMode" value="false"/>Select User Attributes Directly</div>
+    </div> 
+      <hr/> 
+    <div class="section">
+        <span>Component: </span>
+        <select class="wide-select" data-ng-model="component" data-ng-options="c.name for c in componentList" data-ng-change="updateskin()"> </select>
+    </div> 
+    
+    <div data-ng-show="userInputMode == 'true'">
+             <div class="section">
+                <span>Logged in User:</span>
+                <select data-ng-model="currentUser" data-ng-options="user.name for user in users" data-ng-change="changeUser()"> </select><br><br>
+                <button data-ng-show="!addingUser" data-ng-click="addNewUser()" class="boxBtnWide" value="Add User" title="Add User"><span class="btnIcon icon_sprite icon_saveAdd2" aria-hidden="true"></span> Add User</button>
+            </div> 
+                                
+            <div class="addUser" data-ng-show="showAddUserView == true">
+                <h5 tabindex="-1">New User</h5>
+                <p class="informational"> You can add your own mock user for this demo page. This action mimics adding a user to the SSO component.  Domain lists for each entity will eventually come from the test registration system.</p>
+                <div class="section">
+                    <label for="name" title="User Name">User Name:</label>
+                    <input tabindex="0" type="text" alt="User Name" data-ng-model="newuser.name" />
+                </div>
+                <div class="section">
+                    <label for="client" title="Client">CLIENT:</label>
+                    <input tabindex="0" alt="Client" data-ng-model="newuser.client"/>          
+                </div>
+                <div class="section">
+                    <label for="stateGroup" title="State Group">STATE_GROUP:</label>
+                    <input tabindex="0" alt="State Group" data-ng-model="newuser.stateGroup"/>
+                </div>
+                <div class="section" >
+                    <label for="state" title="State">STATE:</label>
+                    <input tabindex="0" alt="State" data-ng-model="newuser.state"/>  
+                </div> 
+                <div class="section">
+                    <label for="districtGroup" title="District Group">DISTRICT_GROUP: </label>
+                    <input tabindex="0" alt="District Group" data-ng-model="newuser.districtGroup"/>  
+                </div>
+                <div class="section">
+                    <label for="district" title="District">DISTRICT: </label>
+                    <input tabindex="0" alt="District" data-ng-model="newuser.district"/>  
+                </div>
+                <div class="section">
+                    <label for="institutionGroup" title="Institution Group">INSTITUTION_GROUP: </label>
+                    <input tabindex="0" alt="Institution Group" data-ng-model="newuser.institutionGroup"/>  
+                </div> 
+                <div class="section">
+                    <label for="institution" title="Institution">INSTITUTION: </label>
+                    <input tabindex="0" alt="Institution" data-ng-model="newuser.institution"/>  
+                </div> 
+            </div>
+      <button tabindex="0" value="Save User" title="Save User" data-ng-show="addingUser" data-ng-click="saveUser()" class="boxBtnWide" ><span class="btnIcon icon_sprite icon_save2" aria-hidden="true"></span> Save User</button>
+      <button tabindex="0" value="Cancel" title="Cancel" data-ng-click="cancelAddNewUser()" class="boxBtnWide" ><span class="btnIcon icon_sprite icon_cancel2" aria-hidden="true"></span> Cancel</button>
+    </div>
+    
+    <div data-ng-show="userInputMode == 'false'">
+         Eventually, entity domain lists come from the registration component.  Since test registration is still under construction, the type ahead combo boxes are being populated with valid tenants only.
+         This is slightly misleading, but it helps to find valid tenant matches.  To use a entity that is not actually a tenant, a mock user needs to be added.
+         <div class="section">
+            <label for="client" title="Client">CLIENT:</label>
+            <span data-tenant-auto-complete data-on-select="attributeChanged(newTenant,'client')"  data-value-attribute="name" data-tenant-model="client" data-tenant-type="CLIENT"></span>          
+        </div>
+        <div class="section">
+            <label for="stateGroup" title="State Group">STATE_GROUP:</label>
+            <span data-tenant-auto-complete data-on-select="attributeChanged(newTenant,'stateGroup')"  data-value-attribute="name" data-tenant-model="stateGroup" data-tenant-type="STATE_GROUP"></span>          
+        </div>
+        <div class="section" >
+            <label for="state" title="State">STATE:</label>
+            <span data-tenant-auto-complete data-on-select="attributeChanged(newTenant,'state')" data-value-attribute="name" data-tenant-model="state" data-tenant-type="STATE"></span>
+        </div> 
+        <div class="section">
+            <label for="districtGroup" title="District Group">DISTRICT_GROUP: </label>
+            <span data-tenant-auto-complete data-on-select="attributeChanged(newTenant,'districtGroup')" data-value-attribute="name" data-tenant-model="districtGroup" data-tenant-type="DISTRICT_GROUP"></span>
+        </div>
+        <div class="section">
+            <label for="district" title="District">DISTRICT: </label>
+            <span data-tenant-auto-complete data-on-select="attributeChanged(newTenant,'district')" data-value-attribute="name" data-tenant-model="district" data-tenant-type="DISTRICT"></span>
+        </div>
+        <div class="section">
+            <label for="institutionGroup" title="Institution Group">INSTITUTION_GROUP: </label>
+            <span data-tenant-auto-complete data-on-select="attributeChanged(newTenant,'institutionGroup')" data-value-attribute="name" data-tenant-model="institutionGroup" data-tenant-type="INSTITUTION_GROUP"></span>
+        </div> 
+        <div class="section">
+            <label for="institution" title="Institution">INSTITUTION: </label>
+            <span data-tenant-auto-complete data-on-select="attributeChanged(newTenant,'institution')" data-value-attribute="name" data-tenant-model="institution" data-tenant-type="INSTITUTION"></span>
+        </div> 
+    </div>
+    <hr/>
+    <p class="informational">This is an example of how to skin a UI using asset groups from program management.</p>
+     <p class="informational">The sample UI to the right will update based on asset groups containing the following assets:<br></p>
+     <ol>
+           <li>logo -- (Image)</li>
+           <li>title -- (Property)</li>
+           <li>header-background -- (Property)</li>
+           <li>main-background -- (Property)</li>
+           <li>meme -- (Image)</li>
+     </ol>
+</div>
+
+<div style="width:64%; float:left; margin:2px;">
+     <div class="detailSection">
+        <b>User Attributes Used to query Program Management:</b>
+        <div>CLIENT: {{userAttributeParams.CLIENT}}<span class="subtext" data-ng-show="tenantFound.CLIENT"> * Has Tenancy</span></div>
+        <div>STATE_GROUP: {{userAttributeParams.STATE_GROUP}}  <span class="subtext" data-ng-show="tenantFound.STATE_GROUP"> * Has Tenancy</span></div>
+        <div>STATE: {{userAttributeParams.STATE}}<span class="subtext" data-ng-show="tenantFound.STATE"> * Has Tenancy</span></div>
+        <div>DISTRICT_GROUP: {{userAttributeParams.DISTRICT_GROUP}}<span class="subtext" data-ng-show="tenantFound.DISTRICT_GROUP"> * Has Tenancy</span></div>
+        <div>DISTRICT: {{userAttributeParams.DISTRICT}}<span class="subtext" data-ng-show="tenantFound.DISTRICT"> * Has Tenancy</span></div>
+        <div>INSTITUTION_GROUP: {{userAttributeParams.INSTITUTION_GROUP}}<span class="subtext" data-ng-show="tenantFound.INSTITUTION_GROUP"> * Has Tenancy</span></div>
+        <div>INSTITUTION:{{userAttributeParams.INSTITUTION}}<span class="subtext" data-ng-show="tenantFound.INSTITUTION"> * Has Tenancy</span></div>
+    </div>
+    <div class="detailSection">
+        <b>Tenancy Chain:</b>
+        <div data-ng-repeat="chainLink in tenancyChain">
+            {{$index + 1}}. {{chainLink.name}} - {{chainLink.type}} <span class="subtext" data-ng-show="chainLink.hasAssetGroup">* Has Asset Group</span><br>
+        </div>
+        <div data-ng-show="tenancyChain.length == 0">No Tenancy Chain Found</div>
+    </div>
+    <div class="detailSection">
+        <b>Asset Group in use for component:{{component.name}}</b>
+        <div data-ng-show="tenant != null">{{tenant.name}} - {{tenant.type}}</div>
+        <div data-ng-show="tenant == null">No Asset Group Found</div>
+    </div> 
+    <div class="clear"></div>
+    <div class="container">
+        <div class="header" data-ng-style="headerbackground">
+            <div class="info"  style="background-color:#0883B0;">
+                <ul>
+                    <li id="systemsDropdown">A Menu <img  src="resources/progman/images/dropdown.png" alt="" />
+                        <ul>
+                            <li><a href="#">Opt 1</a></li>
+                            <li><a href="#">Opt 2</a></li>
+                            <li><a href="#">Opt 3</a></li>
+                        </ul>
+                    </li>
+                    <li>Welcome Demo User</li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </div>
+            <div class="">
+                <div class="logo">
+                    <a href="#"><img data-ng-src="{{logoSrc}}" class="thumbnail" alt="Logo" name="SBAC_logo"></a>
+                </div>
+                <div class="title"><h1 tabindex="-1">Program Management Dashboard {{title}}</h1></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" data-ng-style="mainbackground">
+         <br>A picture is worth 1000 words!<br>
+         <img data-ng-src="{{memeSrc}}" alt="Internet Meme" name="meme" style="width:500px">
+    </div>  
+</div>
+
+<div class="clear"></div>
+</div>
+</div>
+</div>
+

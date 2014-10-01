@@ -1,0 +1,52 @@
+title Asset Upload
+
+participant "User" as U
+
+participant "UI" as UI
+
+participant "AssetPool\nController" as PM
+
+participant "AssetPool\nService" as s
+
+participant "Asset\nGridFs Repository" as FS
+participant "Tenant\n Repository" as TR
+participant "AssetPool\n Repository" as AP
+
+U->UI:select file for upload\nselects 'Upload'
+UI->PM: POST \n/assetPool/{assetPoolId}/assetFile
+
+note left of UI
+multipart form \nupload of file
+end note 
+
+PM->s: saveAssetFile
+s->s:determineAssetType
+
+alt assetType not found
+s-->PM: 
+PM-->UI: Upload Type not Supported\nHTTP 400:Bad request 
+UI-->U:Error
+
+else assetType found
+s->FS: save
+FS-->s: gridFSFile
+s->s: findDuplicateFileNames()
+alt duplicateFile found
+s-->PM: 
+PM-->UI: "Asset Pool already contains file"\nHTTP 400:Bad request 
+UI-->U: Error
+else
+s->s: saveAssetPool()
+s->TR: findOne(tenantId)
+alt assetPool not found
+s-->PM:
+PM-->UI: "Asset Pool Not Found"\nHTTP 400:Bad request 
+UI-->U: Error
+else
+s->AP: save(assetPool)
+end
+s-->PM: 
+PM-->UI: HTTP 200: created
+end
+UI->U:asset uploaded!
+end

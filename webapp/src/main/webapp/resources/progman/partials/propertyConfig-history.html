@@ -1,0 +1,80 @@
+
+	<div class="secContent" data-searchable data-search-url="'/propertyConfig/' + searchParams.id + '/audits'" data-search-params="searchParams" data-search-response="searchResponse" role="search">
+
+            <div class="fieldGroup">
+            <div class="boxWrap setup2">
+<div class="boxTitle"><h2 tabindex="-1">Configuration History</h2></div>
+	<div>
+		<h2 tabindex="-1">Name:{{propertyConfig.name}}</h2>
+		<h2 tabindex="-1">Env:{{propertyConfig.envName}}</h2>
+	</div>
+                <ul>
+                    <li>
+                       <span> 
+                           <label for="key" title="Property Key">Property Key:</label> 
+                           <input tabindex="0" type="text" name="key" alt="Property Key" data-ng-model="searchParams.propertyKey" />
+                       </span>
+                    </li>
+                      <li>
+                       <span> 
+                           <label for="value" title="Property Value">Property Value:</label> 
+                           <input tabindex="0" type="text" name="value" alt="Property Value" data-ng-model="searchParams.propertyValue" />
+                       </span>
+                    </li>
+                </ul>
+                <button tabindex="0" value="Search" title="Search" type="button" type="button" class="boxBtn" data-search-on-click data-active-indicator="searchResponse.searching">
+                    <span class="btnIcon icon_sprite icon_reTry2 ng-class:{ajax_indicator:activeIndicator}" aria-hidden="true"></span>
+                    <span class="btnText">Search</span>
+                </button>
+		        <button tabindex="0" value="Return to Search" title="Return to Search" type="button" class="boxBtn" data-ng-click="returnToSearch()">
+		            <span class="btnIcon icon_sprite icon_reTry2 ng-class:{ajax_indicator:savingIndicator}" aria-hidden="true"></span>
+		            <span class="btnText">Return to Search</span>
+		        </button>
+            </div>
+        <div data-pageable data-paging-info="searchResponse" data-search-params="searchParams" data-change-page="changePage()">
+            <table class="dataTable">
+                   <colgroup>
+                       <col class="actionColumn">
+                       <col>
+                       <col>
+                       <col>
+                   </colgroup>
+                   <tr>
+                       <th scope="col"></th>
+                       <th scope="col" title="Date" data-sort-on-click data-sort-column="auditTimestamp">Date</th>
+                       <th scope="col" title="User" data-sort-on-click data-sort-column="auditUser">User</th>
+                       <th>Type</th>
+                   </tr>
+                   <tbody data-ng-repeat="audit in searchResponse.searchResults" data-expandable="audit">
+	                   <tr>
+	                       <td><span data-ng-click="toggle()" data-ng-keydown="keyToggle($event)" tabindex="0" data-ng-class="iconClass" title="Expand {{audit.auditTimestamp | date:'MMM-dd-yyyy hh:mm a'}}"></span></td>
+	                       <td>{{audit.auditTimestamp | date:'MMM-dd-yyyy hh:mm a'}}</td>
+	                       <td>{{audit.auditUser}}</td>
+	                       <td>{{audit.auditType}} {{audit.expanded}}</td>
+	                   </tr>
+	                   <tr data-ng-show="expanded" class="expander">
+                           <td colspan="4">
+                            <ul class="propertyList">
+                                <li data-ng-repeat="diff in audit.historyDiff">
+                                &nbsp;
+                                    <div data-ng-show="diff.entryDiffOper == 'CHG'" class="EQ">{{diff.propertyKey}}=</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'CHG' && diff.valueChanged" class="DEL">{{diff.oldPropertyValue}}&nbsp;(Removed)&nbsp;</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'CHG' && diff.valueChanged" class="ADD">{{diff.propertyValue}}&nbsp;(Added)&nbsp;</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'CHG' && !diff.valueChanged" class="EQ">{{diff.propertyValue}}&nbsp;</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'CHG' && diff.encryptChanged" class="DEL">{{diff.readableOldEncrypted}}&nbsp;(Removed)&nbsp;</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'CHG' && diff.encryptChanged" class="ADD">{{diff.readableEncrypted}}&nbsp;(Added)&nbsp;</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'CHG' && !diff.encryptChanged" class="EQ">{{diff.readableEncrypted}}</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'EQ'" class="EQ">{{diff.propertyKey}}={{diff.propertyValue}} {{diff.readableEncrypted}}</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'ADD'" class="ADD">{{diff.propertyKey}}={{diff.propertyValue}} {{diff.readableEncrypted}}&nbsp;(Added)&nbsp;</div>
+                                    <div data-ng-show="diff.entryDiffOper == 'DEL'" class="DEL">{{diff.oldPropertyKey}}={{diff.oldPropertyValue}} {{diff.readableOldEncrypted}}&nbsp;(Removed)&nbsp;</div>
+                                </li>
+                            </ul>
+                           </td>
+                       </tr>
+	               </tbody>
+                   
+            </table>
+        </div>
+      </div> 
+</div>
+

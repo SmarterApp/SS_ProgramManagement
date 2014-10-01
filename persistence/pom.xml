@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>prog-mgmnt-persistence</artifactId>
+    <name>Smarter Balanced #11 Program Management - Persistence Tier</name>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>org.opentestsystem.shared</groupId>
+        <artifactId>prog-mgmnt-parent</artifactId>
+        <version>R01.00.00</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.opentestsystem.shared</groupId>
+            <artifactId>prog-mgmnt-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>${jasypt.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/properties</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>properties/**</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+    
+</project>

@@ -1,0 +1,19 @@
+<div class="popUpBG"></div>
+
+<div data-modal-centered class="popUp tenantTypeSelector highlight">
+    <h5 tabindex="-1" >Tenant Type Filter</h5>
+    <div class="fieldGroup">
+        <ul>
+            <li>
+                <span> 
+                    <select tabindex="0" data-focus-on="tenantTypeOptions" data-ng-model="tenantType" data-ng-options="t for t in tenantTypes" data-modal-select-width-helper>
+                       <option value="">Select...</option>
+                    </select>
+                </span>
+            </li>
+        </ul>   
+            
+        <button tabindex="0" value="Filter Tenant Type" title="Filter Tenant Type" data-ng-click="select(tenantType)" class="boxBtn" ><span class="btnIcon icon_sprite icon_save2" aria-hidden="true"></span> <span class="btnText">Filter</span></button>
+        <button tabindex="0" value="Cancel" title="Cancel" data-ng-click="cancel()" class="boxBtn" ><span class="btnIcon icon_sprite icon_cancel2" aria-hidden="true"></span> <span class="btnText">Cancel</span></button>
+    </div> 
+</div>

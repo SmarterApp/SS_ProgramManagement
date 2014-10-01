@@ -1,0 +1,73 @@
+
+<div class="boxWrap setup2">
+<div class="tableWrapper">
+    <table class="dataTable assetGroupEditor" aria-activedescendant="assetName0" role="grid" data-ng-class="{assetPoolExpanded : assetPoolVisible == true}">
+           <colgroup>
+               <col>
+               <col>
+               <col>
+               <col class="thumbnailColumn">
+               <col class="actionColumn">
+               <col class="actionColumn">
+           </colgroup>
+           <tr>
+               <th scope="col" id="assetNameHeader" title="Asset Name">Asset Name</th>
+               <th scope="col" id="assetTypeHeader" title="Asset Type">Asset Type</th>
+               <th scope="col" id="valueHeader" title="Value">Value</th>
+               <th scope="col" id="previewHeader" title="Preview">Preview</th>
+               <th scope="col" id="fileUploadHeader" title="File Upload"></th>
+               <th scope="col" id="removeHeader" title="Remove">
+                   <div class="tableButtonGroup">
+                        <button tabindex="0" value="Add" title="Add" data-ng-click="addItem()" class="boxBtn"><span class="btnIcon icon_sprite icon_saveAdd2" aria-hidden="true"></span></button>
+                   </div>
+               </th>
+           </tr>
+           <tr data-ng-class="{highlight: $index == highlighted}" data-ng-repeat="asset in assets" role="row" id="row{{$index}}">
+               <td class="normalSpace" role="gridcell" id="row{{$index}}-assetName" aria-labelledby="assetNameHeader">
+                    <input type="text" alt="Name" id="assetName{{$index}}" data-ng-model="asset.name"/>
+               </td>
+               <td class="normalSpace" role="gridcell" id="row{{$index}}-assetType" aria-labelledby="assetTypeHeader">
+                    <select id="assetType{{$index}}" data-ng-model="asset.type">
+                        <option value="PROPERTY">Property</option>
+                        <option value="IMAGE">Image</option>
+                    </select>
+               </td>
+               <td class="normalSpace" role="gridcell" id="row{{$index}}-value" aria-labelledby="valueHeader">
+                    <input type="text" alt="Property" id="assetProperty{{$index}}" data-ng-model="asset.property"/>
+               </td>
+               <td class="normalSpace thumbnailColumn" data-ng-switch="asset.type" role="gridcell" id="row{{$index}}-preview" aria-labelledby="previewHeader">
+                    <div data-ng-switch-when="IMAGE">
+                        <img class="thumbnail" id="preview{{$index}}" data-ng-src="{{baseUrl}}{{asset.property}}" alt="thumbnail image"/>
+                    </div>
+                    <div data-ng-switch-default></div>
+               </td>
+               <td class="normalSpace" role="gridcell" id="row{{$index}}-fileUpload" aria-labelledby="fileUploadHeader">
+                   <div class="tableButtonGroup">
+                    <button id="fileUpload{{$index}}" value="Search" title="Search" data-ng-show="asset.type == 'FILE' || asset.type == 'IMAGE'" data-ng-click="searchFromPool($index)" class="boxBtn"><span class="btnIcon icon_sprite icon_view2" aria-hidden="true"></span></button>
+                   </div>
+               </td>
+               <td class="normalSpace" role="gridcell" id="row{{$index}}-remove" aria-labelledby="removeHeader">
+                   <div class="tableButtonGroup">
+                    <button value="Delete" title="Delete" id="remove{{$index}}" data-ng-click="removeAssetValue($index)" class="boxBtn"><span class="btnIcon icon_sprite icon_delete2" aria-hidden="true"></span></button>
+                   </div>
+               </td>
+           </tr>
+    </table>
+    
+    <div data-ng-show="assetPoolVisible" class="assetPoolSelector highlight">
+        <div class="fieldGroup">
+            <h5 tabindex="-1">Asset Pool</h5>
+            <p class="informational">Select an item from your reusable pool of assets. </p>
+            <ul>
+                <li>
+                        <label id="assetPoolItemLabel" for="assetPoolItem" title="Asset">Asset:</label> 
+                        <select id="assetPoolItem" data-ng-model="selectedPoolAsset" data-ng-options="assetPoolFile as assetPoolFile.assetFileName for assetPoolFile in assetsFromPool" aria-labelledby="assetPoolItemLabel"></select>
+                </li>
+                
+            </ul>
+          <button tabindex="0" value="Use" title="Use" data-ng-click="useMe()" class="boxBtn" ><span class="btnIcon icon_sprite icon_save2" aria-hidden="true"></span> <span class="btnText">Use</span></button>
+          <button tabindex="0" value="Cancel" title="Cancel" data-ng-click="cancel()" class="boxBtn" ><span class="btnIcon icon_sprite icon_cancel2" aria-hidden="true"></span> <span class="btnText">Cancel</span></button>
+        </div>
+    </div>
+</div>
+</div>

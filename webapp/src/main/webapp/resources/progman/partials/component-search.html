@@ -1,0 +1,48 @@
+
+	<div class="secContent" data-searchable data-search-url="'component'" data-search-params="searchParams" data-search-response="searchResponse" role="search">
+		<div class="fieldGroup">
+<div class="boxWrap setup2">
+<div class="boxTitle"><h2 tabindex="-1">Component Search</h2></div>
+			<ul>
+				<li>
+				    <span> 
+				        <label for="Component" title="Component">Component:</label> 
+				        <input tabindex="0" type="text" name="name" alt="Component Name" data-ng-model="searchParams.name" />
+				    </span>
+				</li>
+			</ul>
+			<button tabindex="0" value="Search" title="Search" type="button" type="button" class="boxBtn" data-search-on-click	data-active-indicator="searchResponse.searching">
+				<span class="btnIcon icon_sprite icon_reTry2 ng-class:{ajax_indicator:activeIndicator}" aria-hidden="true"></span>
+				<span class="btnText">Search</span>
+			</button>
+			<button tabindex="0" value="New Component" title="New Component" type="button" type="button" class="boxBtn" data-ng-click="createNewItem()">
+				<span class="btnIcon icon_sprite icon_saveAdd2" aria-hidden="true"></span> <span class="btnText">New</span>
+			</button>
+			<button tabindex="0" value="Clear Search" title="Clear Search" type="button" class="boxBtn" data-clear-and-search-on-click data-active-indicator="searchResponse.searching">
+                <span class="btnIcon icon_sprite icon_cancel2 ng-class:{ajax_indicator:activeIndicator}" aria-hidden="true"></span><span class="btnText">Clear Search</span>
+            </button>
+		</div>
+		<div data-pageable data-paging-info="searchResponse" data-search-params="searchParams" data-change-page="changePage()">
+			<table class="dataTable" data-accessible-table role="grid">
+				<colgroup>
+					<col class="actionColumn">
+					<col>
+				</colgroup>
+				<tr>
+					<th scope="col" id="editHeader" title="Edit"></th>
+					<th data-sort-on-click data-sort-column="name" class="headerSortUp" scope="col" id="componentNameHeader" title="Component Name">Component Name</th>
+				</tr>
+				<tr data-ng-repeat="component in searchResponse.searchResults" role="row" id="row{{$index}}">
+					<td class="normalSpace" role="gridcell" id="row{{$index}}-edit" aria-labelledby="editHeader">
+						<div class="tableButtonGroup">
+							<button tabindex="-1" value="EditComponent" title="Edit Component" id="edit{{$index}}" data-ng-click="edit(component)" class="boxBtn">
+								<span class="btnIcon icon_sprite icon_edit2" aria-hidden="true"></span>
+							</button>
+						</div>
+					</td>
+					<td>{{component.name}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

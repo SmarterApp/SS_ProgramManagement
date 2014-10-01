@@ -1,0 +1,22 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>prog-mgmnt-domain</artifactId>
+  <packaging>jar</packaging>
+
+  <parent>
+    <groupId>org.opentestsystem.shared</groupId>
+    <artifactId>prog-mgmnt-parent</artifactId>
+    <version>R01.00.00</version>
+  </parent>
+
+  <name>Smarter Balanced #11 Program Management - Reusable Domain Model</name>
+  <dependencies>
+    <dependency>
+        <groupId>org.opentestsystem.shared</groupId>
+        <artifactId>sb11-shared-security</artifactId>
+        <version>${sb11-shared-security.version}</version>
+    </dependency>
+  </dependencies>
+
+</project>

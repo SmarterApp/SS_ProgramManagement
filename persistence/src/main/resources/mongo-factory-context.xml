@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo" 
+    xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.1.xsd
+    ">
+    <!--NOTE for replica-set attribute: 
+            if you are not running a replicaset (locally or otherwise, just specify the address of your server
+            or if you have a replicaset available, example value for ${pm.mongo.hostname}
+            
+            mongostable01,mongostable02,mongostable03
+            or (to vary from the default port just append a :9999 to the host)
+            mongostable01:27017,mongostable02:27017,mongostable03:27017 
+    -->
+    <mongo:mongo id="progman-mongo" replica-set="${pm.mongo.hostname}">
+         <mongo:options auto-connect-retry="true"  />
+    </mongo:mongo>
+   
+    <mongo:db-factory mongo-ref="progman-mongo" id="mongoDbFactory"  dbname="${pm.mongo.dbname}" username="${pm.mongo.user}" password="${pm.mongo.password}" />
+</beans>    

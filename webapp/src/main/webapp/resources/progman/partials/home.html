@@ -1,0 +1,36 @@
+
+    <div class="content home"> 
+    <div class="nav" data-accessible-table role="navigation">
+    <ol><li class="manageTenants green" data-ng-click="go('/tenantSearch')" data-ng-keydown="goEnter($event, '/tenantSearch')" role="button" tabindex="0" title="Manage Tenants">Manage Tenants<span></span><p role="note">Create and manage tenants for 
+<br>multi-tenant components</p></li>
+    <li class="manageComponents navy" data-ng-click="go('/componentSearch')" data-ng-keydown="goEnter($event, '/componentSearch')" role="button" tabindex="0" title="Manage Components">Manage Components<span></span><p role="note">Create and manage components <br>
+      for tenant subscriptions</p>
+    </li>
+    <li class="configProperties maroon" data-ng-click="go('/propertyConfigSearch')" data-ng-keypress="goEnter($event, '/propertyConfigSearch')" role="button" tabindex="0" title="Configure Component">Configure Component 
+Properties<span></span><p role="note">Create and manage properties <br>
+  for component configurations</p>
+    </li><li class="uploadBranding navy" data-ng-click="go('/assetPoolEditor/')" data-ng-keydown="goEnter($event, '/assetPoolEditor/')" role="button" tabindex="0" title="Upload Branding Images">Upload Branding <br>
+      Images<span></span>
+      <p role="note">Upload component customized <br>
+      branding images</p></li>
+<li class="configBranding maroon" data-ng-click="go('/assetGroupSearch')" data-ng-keydown="goEnter($event, '/assetGroupSearch')" role="button" tabindex="0" title="Configure Component Branding">Configure Component 
+Branding<span></span><p role="note">Configure component branding <br>
+  for tenants</p>
+</li><li class="previewBranding green" data-ng-click="go('/skinnable')" data-ng-keydown="goEnter($event, '/skinnable')" role="button" tabindex="0" title="Preview Component Branding">Preview Component 
+Branding<span></span><p role="note">Preview branding settings with 
+a built-in test component
+</p></li></ol></div>
+<script type="text/javascript">
+$('.content_home').ready(function(){
+	// hide the side menu when home content loaded
+	$('.slide-menu').hide();
+});
+</script>
+
+
+<div class="footer">
+    <div data-ng-if="buildInfo.appVersion" class="footerText">
+        Version: {{buildInfo.appVersion}}
+        <span data-ng-show="buildInfo.jenkinsBuildNumber"> (build #: {{buildInfo.jenkinsBuildNumber}})</span>
+    </div>
+</div>

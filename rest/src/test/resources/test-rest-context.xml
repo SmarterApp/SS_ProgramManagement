@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+                http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.1.xsd
+                ">
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <!-- this allows for missing resources files, specifically the ones defined in env vars -->
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:mongo.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <import resource="classpath:persistence-context.xml" />
+    <import resource="classpath:service-context.xml" />
+    <import resource="classpath:aop-context.xml" />
+
+    <mongo:db-factory id="mongoDbFactory" host="${pm.mongo.hostname}" port="${pm.mongo.port}" dbname="${pm.mongo.dbname}" username="${pm.mongo.user}" password="${pm.mongo.password}" />
+
+    <bean id="userService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.opentestsystem.shared.security.service.UserService" />
+    </bean>
+    
+    <bean id="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+        <property name="indentOutput" value="true" />
+        <property name="simpleDateFormat" value="yyyy-MM-dd'T'HH:mm:ss.SSSZ" />
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="objectMapper" />
+        <property name="targetMethod" value="registerModule" />
+        <property name="arguments">
+            <list>
+                <bean class="com.fasterxml.jackson.datatype.joda.JodaModule" />
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject" ref="objectMapper" />
+        <property name="targetMethod" value="enable" />
+        <property name="arguments">
+            <list>
+                <value type="com.fasterxml.jackson.databind.DeserializationFeature">READ_UNKNOWN_ENUM_VALUES_AS_NULL</value>
+            </list>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.data.web.PageableArgumentResolver"/>
+        </mvc:argument-resolvers>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <context:component-scan base-package="org.opentestsystem.shared.progman.client.config,org.opentestsystem.shared.progman.rest,org.opentestsystem.shared.security.domain" />
+
+    <mvc:interceptors>
+        <bean class="org.opentestsystem.shared.docs.RequestLoggingInterceptor" />
+    </mvc:interceptors>
+
+    <!-- enable AOP support -->
+    <aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
+
+    <bean id="helpMessageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="help" />
+    </bean>
+
+</beans>

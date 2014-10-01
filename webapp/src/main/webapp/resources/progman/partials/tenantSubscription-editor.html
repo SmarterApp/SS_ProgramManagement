@@ -1,0 +1,38 @@
+<div class="tableWrapper">
+	<label class="control-label" title="Component Subscription">Component Subscription</label>
+	<table class="dataTable" data-accessible-table aria-activedescendant="subscribe0" role="grid" summary="Component Subscription">
+	    <colgroup>
+	        <col class="doubleActionColumn">
+	        <col>
+	        <col class="doubleActionColumn">
+	        <col>
+	        <col>
+	    </colgroup>
+	    <thead>
+	    <tr>
+	        <th scope="col" id="subscribedHeader" title="Subscribed">Subscribed</th>
+	        <th scope="col" id="componentNameHeader" title="Component Name">Component Name</th>
+	        <th scope="col" id="goodStandingHeader" title="Good Standing">Good Standing</th>
+	        <th scope="col" id="effectiveDateHeader" title="Effective Date">Effective Date</th>
+	        <th scope="col" id="expirationDateHeader" title="Expiration Date">Expiration Date</th>
+	    </tr>
+	    </thead>
+	    <tbody>
+	    <tr data-ng-repeat="tobeSubscribed in unsubscribed" role="row" id="row{{$index}}">
+	        <td class="normalSpace" role="gridcell" id="row{{$index}}-subscribe" aria-labelledby="subscribedHeader">
+	            <div class="tableButtonGroup">
+	                <input type="checkbox" id="subscribe{{$index}}" alt="Subscribe" data-ng-model="tobeSubscribed.subscribe" data-ng-click="addRemoveSubscription(tobeSubscribed.subscribe, tobeSubscribed.component, $index)" aria-labelledby="subscribedHeader" tabindex="-1" />
+	            </div>
+	        </td>
+	        <td role="gridcell" id="row{{$index}}-componentName" aria-labelledby="componentNameHeader">{{tobeSubscribed.component.name}}</td>
+            <td class="normalSpace" role="gridcell" id="row{{$index}}-goodStanding" aria-labelledby="goodStandingHeader">
+                <div class="tableButtonGroup">
+                    <input type="checkbox" id="inGoodStanding{{$index}}" name="inGoodStanding" alt="In Good Standing" data-ng-disabled="!tobeSubscribed.subscribe" data-ng-model="tenant.tenantSubscriptions[subscriptionIndexMap[$index]].inGoodStanding" aria-labelledby="goodStandingHeader" tabindex="-1" />
+                </div>
+            </td>
+            <td role="gridcell" id="row{{$index}}-effectiveDate" aria-labelledby="effectiveDateHeader"><div class="centerDiv datepicker"><span class="icon-chevron-calendar"></span><input aria-labelledby="effectiveDateHeader" tabindex="-1" type="text" alt="Effective Date" data-datepicker-popup="yyyy-MM-dd" data-datepicker-local-date data-show-weeks="false" id="effectiveDate{{$index}}" data-ng-model="tenant.tenantSubscriptions[subscriptionIndexMap[$index]].effectiveDate" data-ng-disabled="!tobeSubscribed.subscribe" data-ng-required="true" value="tobeSubscribed.effectiveDate" /><button aria-labelledby="effectiveDateHeader" tabindex="-1" type="button" id="effectiveDateRemove{{$index}}" data-ng-click="clearEffectiveDate(tenant.tenantSubscriptions[subscriptionIndexMap[$index]].effectiveDate, tobeSubscribed.component.id)" class="boxBtnDatepicker" value="Clear" title="Clear"><span class="btnIcon icon_sprite icon_delete2" aria-hidden="true" aria-required="true" ></span></button></div></td>
+            <td role="gridcell" id="row{{$index}}-expirationDate" aria-labelledby="expirationDateHeader"><div class="centerDiv datepicker"><span class="icon-chevron-calendar"></span><input aria-labelledby="expirationDateHeader" tabindex="-1" type="text" alt="Expiration Date" data-datepicker-popup="yyyy-MM-dd" data-datepicker-local-date data-show-weeks="false" id="expirationDate{{$index}}" data-ng-model="tenant.tenantSubscriptions[subscriptionIndexMap[$index]].expirationDate" data-ng-disabled="!tobeSubscribed.subscribe" /><button aria-labelledby="expirationDateHeader" tabindex="-1" type="button" id="expirationDateRemove{{$index}}" data-ng-click="clearExpirationDate(tenant.tenantSubscriptions[subscriptionIndexMap[$index]].expirationDate, tobeSubscribed.component.id)" class="boxBtnDatepicker" value="Clear" title="Clear"><span class="btnIcon icon_sprite icon_delete2" aria-hidden="true"></span></button></div></td>
+	    </tr>
+	    </tbody>
+	</table> 
+</div>

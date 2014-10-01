@@ -1,0 +1,77 @@
+
+<div>
+	<div class="secContent" data-searchable data-search-url="'tenant'" data-search-params="searchParams" data-search-response="searchResponse" role="search">
+
+		<div class="fieldGroup">
+		<div class="boxWrap setup2">
+<span class="boxTitle"><h2 tabindex="-1">Tenant Search</h2></span>
+	<div>
+			<ul>
+				<li>
+				    <span>
+                        <label for="name" title="Tenant">Tenant:</label>
+                        <input type="text" tabindex="0" name="name" data-ng-model="searchParams.name" alt="Tenant" />
+                    </span>
+				</li>
+				<li>
+				    <span> 
+				        <label for="Type" title="Type">Type:</label>
+					    <select tabindex="0" data-ng-model="searchParams.type" data-ng-options="t for t in tenantTypes">
+	                       <option value="">Select...</option>
+	                    </select>
+	                </span>
+				</li>
+				<li>
+                    <span>
+                        <label for="description" title="Description">Description:</label>
+                        <input type="text" tabindex="0" name="description" data-ng-model="searchParams.description" alt="Description" />
+                    </span>
+                </li>
+                <li>
+                    <span>
+                      
+                    </span>
+                </li>
+			</ul>
+			<button tabindex="0" value="Search Tenants" title="Search Tenants" type="button" class="boxBtn" data-search-on-click data-active-indicator="searchResponse.searching">
+				<span class="btnIcon icon_sprite icon_reTry2 ng-class:{ajax_indicator:activeIndicator}" aria-hidden="true"></span><span class="btnText">Search</span>
+			</button>
+			<button tabindex="0" value="Add New Tenant" title="Add New Tenant" type="button" class="boxBtn" data-ng-click="createNewItem()">
+				<span class="btnIcon icon_sprite icon_saveAdd2" aria-hidden="true"></span><span class="btnText">New</span>
+			</button>
+			<button tabindex="0" value="Clear Search" title="Clear Search" type="button" class="boxBtn" data-clear-and-search-on-click data-active-indicator="searchResponse.searching">
+                <span class="btnIcon icon_sprite icon_cancel2 ng-class:{ajax_indicator:activeIndicator}" aria-hidden="true"></span><span class="btnText">Clear Search</span>
+            </button>
+		</div>
+		<div data-pageable data-paging-info="searchResponse" data-search-params="searchParams" data-change-page="changePage()">
+			<table class="dataTable" data-accessible-table role="grid">
+				<colgroup>
+					<col class="actionColumn">
+					<col>
+					<col>
+					<col>
+				</colgroup>
+				<tr>
+					<th scope="col" id="editHeader" title="Edit"></th>
+					<th scope="col" data-sort-on-click data-sort-column="name" class="headerSortUp" scope="col" id="tenantNameHeader" title="Tenant Name">Tenant Name</th>
+					<th scope="col" data-sort-on-click data-sort-column="description" scope="col" id="descriptionHeader" title="Description">Description</th>
+					<th scope="col" data-sort-on-click data-sort-column="type" scope="col" id="typeHeader" title="Type">Type</th>
+				</tr>
+				<tr data-ng-repeat="tenant in searchResponse.searchResults" scope="row" role="row" id="row{{$index}}">
+					<td class="normalSpace" scope="col" role="gridcell" id="row{{$index}}-edit" aria-labelledby="editHeader">
+						<div class="tableButtonGroup">
+							<button tabindex="-1" value="Edit" title="Edit" data-ng-click="edit(tenant)" id="edit{{$index}}" class="boxBtn">
+								<span class="btnIcon icon_sprite icon_edit2" aria-hidden="true"></span>
+							</button>
+						</div>
+					</td>
+					<td>{{tenant.name}}</td>
+					<td>{{tenant.description}}</td>
+					<td>{{tenant.type}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	</div>
+</div>
+</div>

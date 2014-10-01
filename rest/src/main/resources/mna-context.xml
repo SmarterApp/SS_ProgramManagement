@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<!-- this allows for missing resources files, specifically the ones defined in env vars -->
+		<property name="ignoreResourceNotFound" value="true" />
+		<!-- this allows blank entries for username/password in mongo.properties -->
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:progman-bootstrap.properties</value>
+				<value>file:${SB11_CONFIG_DIR}/progman/progman-bootstrap.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<task:annotation-driven executor="executor" />
+	<task:executor id="executor" pool-size="7" />
+	<task:scheduler id="scheduler" pool-size="7" />
+
+	<bean id="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+		<property name="indentOutput" value="true" />
+		<property name="simpleDateFormat" value="yyyy-MM-dd'T'HH:mm:ss.SSSZ" />
+	</bean>
+
+</beans>

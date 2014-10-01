@@ -1,0 +1,51 @@
+
+           
+<div data-ng-form="assetGroupForm" class="formWrapper secContent">
+    <div data-ng-show="assetGroupForm.$dirty" class="dirtynag">* Warning: You have unsaved changes</div>
+    <div class="fieldGroup">
+    <div class="boxWrap setup2">
+<div data-ng-repeat="error in errors">
+	<div><span class="icon_sprite icon_error error"></span>{{error}}</div>
+</div>
+    <h5 tabindex="-1">{{title}} Component Branding Information</h5>
+
+        <ul>
+            <li>
+                <span class="tenant-auto-complete">
+                    <label for="selectedTenantName" title="Tenant">Tenant:</label>
+                    <span data-tenant-auto-complete data-on-select="changeTenant(newTenant)" data-tenant-model="selectedTenantName" data-tenant-type="{{selectedTenantType}}"></span>
+                    
+                    <br />
+                        
+                    <a class="fieldLink" data-tenant-type-modal data-selected-tenant-type="selectedTenantType" href="">
+                        <span class="subGroup" data-ng-show="!selectedTenantType">Filter</span>
+                        <span class="subGroup" data-ng-show="selectedTenantType">Filtered By: {{selectedTenantType}}</span>
+                    </a>
+                </span>
+            </li>
+            <li>
+                <span>
+                   <label class="control-label" for="selectedAssetGroupComponent" title="Component">Component:</label>
+                   <select class="wide-select" data-ng-model="selectedAssetGroupComponent" data-ng-options="component.id as component.name for component in components">
+                       <option value="">Select...</option>
+                  </select>
+               </span>
+            </li>
+        </ul>
+        
+        <div data-assetvalueeditor data-base-url="baseUrl" data-form-name="assetGroupForm" data-assets="assetGroup.assets" data-assets-from-pool="assetsFromPool"></div>
+        <button tabindex="0" value="Save" title="Save" type="submit" class="boxBtn" data-ng-show="assetGroupForm.$dirty" data-ng-click="save(assetGroup, assetGroupForm)">
+            <span class="btnIcon icon_sprite icon_save2 ng-class:{ajax_indicator:savingIndicator}" aria-hidden="true"></span>
+            <span class="btnText">Save</span>
+        </button>
+        <button tabindex="0" value="Cancel" title="Cancel" type="button" data-ng-show="assetGroupForm.$dirty" class="boxBtn" data-ng-click="cancel()">
+            <span class="btnIcon icon_sprite icon_cancel2" aria-hidden="true"></span>
+            <span class="btnText">Cancel</span>
+        </button>
+        <button tabindex="0" value="Return to Search" title="Return to Search" type="button"  class="boxBtn" data-ng-click="returnToSearch()">
+            <span class="btnIcon icon_sprite icon_reTry2" aria-hidden="true"></span>
+            <span class="btnText">Return To Search</span>
+        </button>
+    </div>
+</div>  
+</div>

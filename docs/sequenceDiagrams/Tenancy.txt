@@ -1,0 +1,132 @@
+title Tenancy
+
+ 
+
+participant "User" as U
+
+participant "Client Component" as CC
+
+participant "Program Management" as PM
+
+participant "SSO" as SSO
+
+participant "Permissions" as PS
+
+ 
+
+autonumber
+
+option footer = none
+
+ 
+
+CC->PS: Get role-to-permissions mapping ( component )
+
+CC->CC: Cache permissions mapping
+
+ 
+
+U->CC: Access feature ABC
+
+CC->SSO: User Authenticates Succesfully
+
+
+note left of CC
+
+SSO returns user's attributes,
+
+roles, associated entities and
+
+entity antecedents
+
+end note
+
+
+ 
+
+end
+
+ 
+
+CC->>CC: Select appropriate role
+
+
+ 
+
+parallel {
+
+CC->PM: retrieveAssets( component, Map<EntityType,EntityNames> )
+
+PM->PM: getOrderedTenants(entities):tenancyChain
+
+PM->PM: findAssetGroups(foundTenants, component)
+
+else
+
+loop each AssetGroup in order of tenancyChain
+
+
+
+PM->PM: Is tenant in good standing(assetGroup)
+
+ 
+
+alt Tenant is in good standing
+
+ 
+
+PM-->CC: Map<asset name, asset value>
+
+ 
+
+CC->CC: "Skin" component
+
+ 
+
+parallel {
+
+CC->U: Page for feature ABC
+
+note right of CC
+
+Client component limits data visibility to
+
+only data appropriate for role/tenant
+
+end note
+
+}
+
+
+
+else assetGroup is base tenant (landlord)
+
+PM-->CC: default branding assets for component are returned
+
+
+
+CC->CC: "Skin" component
+
+parallel {
+
+CC->U: Page for feature ABC
+
+note right of CC
+
+Client component limits data visibility to
+
+only data appropriate for role/tenant
+
+end note
+
+}
+
+else Tenant is not in good standing
+
+ 
+
+PM-->CC: Tenant is not in good standing
+
+CC->U: Pay your bills!
+
+end

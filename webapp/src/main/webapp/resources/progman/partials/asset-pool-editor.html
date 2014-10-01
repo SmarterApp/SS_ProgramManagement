@@ -1,0 +1,135 @@
+        
+<div class="secContent">
+    <div class="fieldGroup">
+    <div class="boxWrap setup2">
+<div data-ng-repeat="error in errors">
+    <div><span class="icon_sprite icon_error error"></span>{{error}}</div>
+</div>
+<div class="boxTitle"><h2 tabindex="-1">Manage Branding Images</h2></div>
+        <h5 tabindex="-1">Upload Images</h5>
+        <p class="informational">
+          Select a tenant to manage their asset pool.
+        </p>
+
+        <ul>
+            <li>
+                <span class="tenant-auto-complete">
+                    <label for="Type" title="Tenant">Tenant:</label>
+                    <span data-tenant-auto-complete data-on-select="changeTenant(newTenant)" data-tenant-model="selectedTenant" data-tenant-type="{{selectedTenantType}}"></span>
+                    
+                    <br />
+                    
+                    <a class="fieldLink" data-tenant-type-modal data-selected-tenant-type="selectedTenantType" href="">
+                        <span class="subGroup" data-ng-show="!selectedTenantType">Filter</span>
+                        <span class="subGroup" data-ng-show="selectedTenantType">Filtered By: {{selectedTenantType}}</span>
+                    </a>
+                </span>
+            </li>
+        </ul>
+    </div>    
+
+     <div data-ng-show="tenant != null" >
+              <p class="informational">You can upload assets to the asset pool.  Once assets are uploaded to the pool, you can assign them to any componet's asset group. <br/>
+                Add files to the queue you can:
+              </p>
+              <ol>
+                   <li class="informational">Use the file selector </li>
+                   <li class="informational">Drag files to the queue if you have a modern web browser</li>
+                </ol> 
+              <form id="fileupload" method="POST" enctype="multipart/form-data"  data-file-upload="options">
+                        <div class="row fileupload-buttonbar">
+                            <div class="fieldGroup">
+                                <ul>
+                                  <li>
+                                    <span class="wide-fields"> 
+                                        <label class="control-label" for="assetFile" title="Select Files">Select Files:</label>
+                                        <input tabindex="0" type="file" name="assetFile" alt="Select Files" data-multiple data-ng-disabled="disabled">
+                                    </span>
+                                   </li>
+                                 </ul>   
+                                <button tabindex="0" value="Upload All" title="Upload All" type="button" class="boxBtn" data-ng-click="submit()">
+                                    <span aria-hidden="true"class="btnIcon icon_sprite icon_save2 ng-class:{ajax_indicator:savingIndicator}" ></span>
+                                    <span class="btnText">Upload All</span>
+                                </button>
+                                <button tabindex="0" value="Cancel All" title="Cancel All" type="button" class="boxBtn" data-ng-click="cancel()">
+                                    <span class="btnIcon icon_sprite icon_cancel2" aria-hidden="true"></span>
+                                    <span class="btnText">Cancel All</span>
+                                </button>
+                                <span data-ng-show="uploadSuccessMessage">{{uploadSuccessMessage}}</span>
+                            </div>
+                                 
+                        </div>
+                        <!-- The table listing the files available for upload/download -->
+                        <table class="dataTable ng-cloak">
+                            <tr>
+                                <th scope="col" title="Upload Queue" colspan="4">Upload Queue</th>
+                            </tr>
+                            <tr data-ng-show="queue.length == 0">
+                              <td colspan="4">
+                                  No files to upload.
+                              </td>
+                            </tr>
+                            <tr data-ng-repeat="file in queue" data-ng-hide="!file.$cancel">
+                                <td>
+                                    <div class="preview" data-ng-show="file.preview" data-file-upload-preview="file"></div>
+                                    <span data-ng-show="!file.preview">
+                                        Preview not available in your browser.
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>{{file.name}}</span>
+                                    <div data-ng-show="file.error"><span class="label label-important">Error</span> {{file.error}}</div>
+                                </td>
+                                <td>
+                                    <p class="size">{{file.size | formatFileSize}}</p>
+                                    <div class="progress-animated active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                                </td>
+                                <td>
+                                   <button type="button" class="boxBtnWide" data-ng-click="file.$submit()" data-ng-hide="!file.$submit" value="Upload" title="Upload"><span class="btnIcon icon_sprite icon_save2 ng-class:{ajax_indicator:savingIndicator}" aria-hidden="true"></span><span class="btnText">Upload</span></button><button type="button" class="boxBtnWide" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel"><span class="btnIcon icon_sprite icon_cancel2" aria-hidden="true"></span><span class="btnText">Cancel</span></button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form> 
+            </div>
+                       
+    <div data-ng-show="tenant != null">
+        <h5 tabindex="-1">Current images pool for tenant: {{tenant.name}}</h5>
+        
+        <div data-ng-show="assetPool == null">
+           No asset pool for found for {{tenant.name}}.  Please wait one moment while I create one.       
+        </div>
+
+        <div data-ng-show="assetPool.assets.length == 0">
+           No assets for tenant.        
+        </div>
+        
+        
+        <div data-ng-show="assetPool.assets.length > 0">
+            <table class="dataTable">
+                <colgroup>
+                    <col class="thumbnailColumn">
+                    <col>
+                    <col>
+                    <col class="actionColumn">
+                </colgroup>
+                <tr>
+                    <th scope="col" title="Preview">Preview</th>
+                    <th scope="col" title="File Name">File Name</th>
+                    <th scope="col" title="Type">Type</th>
+                    <th></th>
+                </tr>
+                 <tr data-ng-repeat="assetFile in assetPool.assets">
+                    <td><img class="thumbnail" data-ng-src="{{assetFile.url}}" alt="Asset File" /></td>
+                    <td>{{assetFile.assetFileName}}</td>
+                    <td>{{assetFile.fileContentType}}</td>
+                    <td>
+                        <div class="tableButtonGroup">
+                            <button tabindex="0" value="Delete" title="Delete" data-ng-click="deleteItemFromPool(assetFile.assetFileGridId)" class="boxBtn" ><span class="btnIcon icon_sprite icon_delete2" aria-hidden="true"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</div>

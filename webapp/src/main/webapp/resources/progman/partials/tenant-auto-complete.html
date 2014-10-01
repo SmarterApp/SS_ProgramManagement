@@ -1,0 +1,8 @@
+
+<input type="text" 
+    placeholder="Select..." 
+    data-ng-model="tenantModel"
+    data-typeahead="({true:availableTenant[valueAttribute], false:availableTenant}[hasAttribute]) as availableTenant.name + (availableTenant.description && ' - ' + availableTenant.description || '') for availableTenant in filterTenants($viewValue,tenantType,10)" 
+    data-typeahead-wait-ms="200" 
+    data-typeahead-editable="false" 
+    data-typeahead-on-select="onSelect({newTenant:$item,newTenantLabel:$label})" /> 

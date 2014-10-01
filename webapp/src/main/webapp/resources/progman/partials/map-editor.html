@@ -1,0 +1,35 @@
+<div class="tableWrapper">
+	<div>
+	   Property Editor: <input type="radio" data-ng-model="editor" alt="Property Editor" value="form"> Form Entry <input type="radio" value="propertyFile" alt="Form Entry" data-ng-model="editor"> Property File Entry 
+	</div>
+	<table data-ng-show="editor == 'form'" class="propertyValueTable" aria-activedescendant="encrypt0" role="grid">
+	       <colgroup>
+	           <col>
+	           <col>
+	           <col>
+               <col class="actionColumn">
+	       </colgroup>
+	       <tr>
+	           <th scope="col" id="encryptHeader" title="Encrypt">Encrypt</th>
+               <th scope="col" id="keyHeader" title="Key">Key</th>
+	           <th scope="col" id="valueHeader" title="Value">Value</th>
+	           <th scope="col" id="removeHeader" title="Remove" id="addItemHeader">
+	               <div class="tableButtonGroup">
+                        <button data-ng-click="addItem()" class="boxBtn" value="Add Value" title="Add Value" id="addItem" tabindex="0"><span class="btnIcon icon_sprite icon_saveAdd2" aria-hidden="true"></span></button>
+                   </div>
+               </th>
+	       </tr>
+	       
+	       <tr data-ng-repeat="propertyEntry in properties" role="row" id="row{{$index}}">
+	           <td role="gridcell" id="row{{$index}}-encrypt" aria-labelledby="encryptHeader"><input type="checkbox" alt="Encrypt" id="encrypt{{$index}}" data-ng-model="propertyEntry.encrypt" /> </td>
+               <td role="gridcell" id="row{{$index}}-key" aria-labelledby="keyHeader"><input type="text" alt="Property Key" id="key{{$index}}" data-ng-model="propertyEntry.propertyKey" /> </td>
+	           <td role="gridcell" id="row{{$index}}-value" aria-labelledby="valueHeader"><input type="text" alt="Property Value" id="value{{$index}}" data-ng-model="propertyEntry.propertyValue" data-ng-hide="propertyEntry.encrypt" data-ng-show="!propertyEntry.encrypt" /><input type="password" alt="Password" data-ng-model="propertyEntry.propertyValue" data-ng-hide="!propertyEntry.encrypt" data-ng-show="propertyEntry.encrypt" /></td>
+	           <td class="normalSpace" role="gridcell" id="row{{$index}}-remove" aria-labelledby="removeHeader">
+                   <div class="tableButtonGroup">
+                        <button data-ng-click="removeMapValue($index)" class="boxBtn" value="Remove Property" title="Remove Property" id="remove{{$index}}" tabindex="-1"><span class="btnIcon icon_sprite icon_delete2" aria-hidden="true"></span></button>
+                   </div>
+               </td>
+	       </tr>
+	</table>
+	<textarea data-ng-show="editor == 'propertyFile'" class="large" data-ng-model="textProperties"> </textarea>
+</div>

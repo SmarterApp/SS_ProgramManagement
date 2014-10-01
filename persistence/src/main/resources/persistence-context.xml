@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo" xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.1.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+    <mongo:repositories base-package="org.opentestsystem.shared.progman.persistence" factory-class="org.opentestsystem.shared.search.persistence.SearchableRepositoryFactoryBean"/>
+    
+    <util:constant id="ESCAPE_CHARACTER" static-field="org.opentestsystem.shared.progman.domain.PropertyConfig.ESCAPE_CHARACTER"/>
+    
+    <bean id="mappingContext" class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />
+    
+    <bean id="mappingMongoConverter" class="org.springframework.data.mongodb.core.convert.MappingMongoConverter">
+        <!-- this mongoDbFactory is provided in an external context file -->
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+        <constructor-arg name="mappingContext" ref="mappingContext" />
+        <property name="mapKeyDotReplacement" ref="ESCAPE_CHARACTER" />
+    </bean>
+    
+    
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+        <constructor-arg name="mongoConverter" ref="mappingMongoConverter" />
+        <property name="writeConcern">
+            <util:constant static-field="com.mongodb.WriteConcern.SAFE" />
+        </property> 
+    </bean>
+    
+    <!-- note, by adding this bean (specifically the base-package scan, the jsr-303 validations are now honored. -->
+    <mongo:mapping-converter id="dateTimeConverter" db-factory-ref="mongoDbFactory" base-package="org.opentestsystem.shared.progman.domain">
+        <mongo:custom-converters>
+            <mongo:converter>
+                <bean class="org.opentestsystem.shared.progman.mongodb.converter.DateTimeWriteConverter" />
+            </mongo:converter>
+            <mongo:converter>
+                <bean class="org.opentestsystem.shared.progman.mongodb.converter.DateTimeReadConverter" />
+            </mongo:converter>
+        </mongo:custom-converters>
+    </mongo:mapping-converter>
+    
+    <bean id="gridFsTemplate" class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
+        <constructor-arg ref="mongoDbFactory" />
+        <constructor-arg ref="mappingMongoConverter" />
+    </bean>
+    
+    <bean id="gridFsRepository" class="org.opentestsystem.shared.progman.persistence.GridFsRepositoryImpl" />
+
+</beans>

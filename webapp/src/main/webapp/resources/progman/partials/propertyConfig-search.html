@@ -1,0 +1,66 @@
+
+
+		<div class="secContent" data-searchable data-search-url="'/propertyConfig'" data-search-params="searchParams" data-search-response="searchResponse" role="search">
+			<div class="fieldGroup">
+			<div class="boxWrap setup2">
+    <div class="boxTitle"><h2 tabindex="-1">Configuration Search</h2></div>
+				<ul>
+					<li>
+					   <span> 
+					       <label for="Name" title="Name">Name:</label> 
+					       <input tabindex="0" type="text" name="name" alt="Name" data-ng-model="searchParams.nameContains" />
+					   </span>
+					</li>
+					<li>
+					   <span> 
+						   <label for="Environment" title="Environment">Environment:</label>
+						   <input tabindex="0" type="text" name="envName" alt="Environment" data-ng-model="searchParams.envNameContains">
+						</span>
+					</li>
+				</ul>
+				<button tabindex="0" value="Search" title="Search" type="button" type="button" class="boxBtn" data-search-on-click data-active-indicator="searchResponse.searching">
+					<span class="btnIcon icon_sprite icon_reTry2 ng-class:{ajax_indicator:activeIndicator}" aria-hidden="true"></span>
+					<span class="btnText">Search</span>
+				</button>
+				<button tabindex="0" value="New Configuration" title="New Configuration" type="button" type="button" class="boxBtn" data-ng-click="createNewItem()">
+                    <span class="btnIcon icon_sprite icon_saveAdd2" aria-hidden="true"></span>
+                    <span class="btnText">New</span>
+                </button>
+                <button tabindex="0" value="Clear Search" title="Clear Search" type="button" class="boxBtn" data-clear-and-search-on-click data-active-indicator="searchResponse.searching">
+                    <span class="btnIcon icon_sprite icon_cancel2 ng-class:{ajax_indicator:activeIndicator}" aria-hidden="true"></span>
+                    <span class="btnText">Clear Search</span>
+                </button>
+			</div>
+		<div data-pageable data-paging-info="searchResponse" data-search-params="searchParams" data-change-page="changePage()">
+			<table class="dataTable" data-accessible-table role="grid">
+			        <colgroup>
+		               <col class="doubleActionColumn">
+		               <col>
+		               <col>
+		               <col class="actionColumn">
+		           </colgroup>
+			       <tr>
+		               <th scope="col" id="actionHeader" title="Action">Action</th>
+                       <th data-sort-on-click data-sort-column="name" class="headerSortUp" scope="col" id="configNameHeader" title="Config Name">Config Name</th>
+                       <th data-sort-on-click data-sort-column="envName" scope="col" id="environmentHeader" title="Environment">Environment</th>
+                       <th id="removeHeader" title="Remove"></th>
+			       </tr>
+			       <tr data-ng-repeat="config in searchResponse.searchResults" role="row" id="row{{$index}}">
+			           <td class="normalSpace" role="gridcell" id="row{{$index}}-action" aria-labelledby="actionHeader">
+				         <div class="tableButtonGroup">
+	                        <button tabindex="-1" value="Edit" title="Edit" id="edit{{$index}}" data-ng-click="edit(config)" class="boxBtn" ><span class="btnIcon icon_sprite icon_edit2" aria-hidden="true"></span></button>
+	                        <button tabindex="-1" value="Configuration History" title="Configuration History" id="config{{$index}}" data-ng-click="history(config)" class="boxBtn" ><span class="btnIcon icon_sprite icon_subject2" aria-hidden="true"></span></button>
+	                   </div>
+			           </td>
+			           <td role="gridcell" id="row{{$index}}-configName" aria-labelledby="configNameHeader">{{config.name}}</td>
+			           <td role="gridcell" id="row{{$index}}-environment" aria-labelledby="environmentHeader">{{config.envName}}</td>
+			           <td class="normalSpace" role="gridcell" id="row{{$index}}-remove" aria-labelledby="removeHeader">
+                        <div class="tableButtonGroup">
+                            <button tabindex="-1" value="Remove Configuration" title="Remove Configuration" id="remove{{$index}}" data-ng-click="remove(config)" class="boxBtn" ><span class="btnIcon icon_sprite  icon_delete2" aria-hidden="true"></span></button>
+                        </div>
+                    </td>
+			       </tr>
+			</table>
+		</div>
+		</div> 
+	</div>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:util="http://www.springframework.org/schema/util" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.1.xsd
+                http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="userService" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.opentestsystem.shared.security.service.UserService" />
+    </bean>
+
+    <import resource="classpath:persistence-context.xml" />
+    <import resource="classpath:service-context.xml" />
+    <import resource="classpath:aop-context.xml" />
+    <context:component-scan base-package="org.opentestsystem.shared.progman.testaop" />
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <!-- this allows for missing resources files, specifically the ones defined in env vars -->
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:mongo.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <mongo:db-factory id="mongoDbFactory" host="${pm.mongo.hostname}" port="${pm.mongo.port}" dbname="${pm.mongo.dbname}" username="${pm.mongo.user}" password="${pm.mongo.password}" />
+</beans>    

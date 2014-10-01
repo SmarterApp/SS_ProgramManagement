@@ -1,0 +1,55 @@
+
+
+ 
+<div data-ng-form="tenantForm" class="formWrapper">
+    <div data-ng-show="tenantForm.$dirty" class="dirtynag">* Warning: You have unsaved changes</div>
+    <div class="fieldGroup">
+    <div class="boxWrap setup2">
+<div data-ng-repeat="error in errors">
+   <div><span class="icon_sprite icon_error error"></span>{{error}}</div>
+</div>
+<div class="secContent">
+    <h5 tabindex="-1">{{formAction}} Tenant Information</h5>
+        <ul>
+            <li>
+                <span> 
+                    <label class="control-label" for="tenant.name" title="Tenant Name">Tenant Name:</label>
+                    <input tabindex="0" type="text" alt="Tenant Name" data-ng-model="tenant.name"/>
+                </span>
+            </li>
+            <li>
+                <span> 
+                    <label class="control-label" for="tenant.type" title="Tenant Type">Tenant Type:</label>
+                    <select tabindex="0" data-ng-model="tenant.type" data-ng-options="t for t in tenantTypes">
+                       <option value="">Select...</option>
+                    </select>
+                </span>
+            </li>
+            <li>
+                <span> 
+                    <label class="control-label" for="tenant.description" title="Description">Description:</label>
+                    <input tabindex="0" type="text" alt="Description" data-ng-model="tenant.description" />
+                </span>
+            </li>
+            <li>
+                <span> 
+                </span>
+            </li>
+        </ul>  
+        <div data-tenantsubscriptioneditor data-components="components" data-tenant="tenant" data-unsubscribed="unsubscribed"></div>
+        <button tabindex="0" value="Save" title="Save" type="button" class="boxBtn" data-ng-show="tenantForm.$dirty" data-ng-click="save(tenant)">
+            <span class="btnIcon icon_sprite icon_save2 ng-class:{ajax_indicator:savingIndicator}" aria-hidden="true"></span>
+            <span class="btnText">Save</span>
+        </button>
+        <button tabindex="0" value="Cancel" title="Cancel" type="button" class="boxBtn" data-ng-show="tenantForm.$dirty" data-ng-click="cancel()">
+            <span class="btnIcon icon_sprite icon_cancel2" aria-hidden="true"></span>
+            <span class="btnText">Cancel</span>
+        </button>
+         <button tabindex="0" value="Return to Tenant Search" title="Return to Tenant Search" type="button" class="boxBtn" data-ng-click="returnToSearch()">
+            <span class="btnIcon icon_sprite icon_reTry2" aria-hidden="true"></span>
+            <span class="btnText">Return to Search</span>
+        </button>
+    </div>
+</div>  
+</div>
+</div>

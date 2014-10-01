@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>Smarter Balanced #11 Program Management - RESTful interface for the Component</name>
+    <artifactId>prog-mgmnt.rest</artifactId>
+    <packaging>war</packaging>
+
+    <parent>
+        <groupId>org.opentestsystem.shared</groupId>
+        <artifactId>prog-mgmnt-parent</artifactId>
+        <version>R01.00.00</version>
+    </parent>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.opentestsystem.shared</groupId>
+            <artifactId>prog-mgmnt-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.opentestsystem.shared</groupId>
+            <artifactId>rest-api-generator</artifactId>
+            <version>${rest-api-generator.version}</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.opentestsystem.shared</groupId>
+            <artifactId>rest-api-generator</artifactId>
+            <version>${rest-api-generator.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        
+      	<dependency>
+        	<groupId>commons-fileupload</groupId>
+        	<artifactId>commons-fileupload</artifactId>
+        	<version>${commons-fileupload.version}</version>
+    	</dependency>
+        
+        <dependency>
+            <groupId>org.opentestsystem.shared</groupId>
+            <artifactId>monitoring-alerting.client-null-impl</artifactId>
+            <version>${sb11-mna-client.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.opentestsystem.shared</groupId>
+            <artifactId>monitoring-alerting.client</artifactId>
+            <version> ${sb11-mna-client.version}</version>
+        </dependency>  
+        
+        <dependency>
+            <groupId>org.opentestsystem.shared</groupId>
+            <artifactId>sb11-shared-security</artifactId>
+            <version>${sb11-shared-security.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- tell maven to build both WAR and JAR. We pull JAR in the integration-test project. use <classifier>classes</classifier> in a dependency to pull JAR file in to another project. -->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war-plugin.version}</version>
+                <configuration>
+                    <attachClasses>true</attachClasses>
+                    <classesClassifier>classes</classesClassifier>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                        <manifestEntries>
+                            <Specification-Version>${project.version}</Specification-Version>
+                            <Implementation-Version>${BUILD_NUMBER}</Implementation-Version>
+                            <Implementation-Date>${BUILD_ID}</Implementation-Date>
+                            <Implementation-Identifier>${GIT_COMMIT}</Implementation-Identifier>
+                            <Implementation-Url>${BUILD_URL}</Implementation-Url>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+           <resource>
+                <directory>src/main/resources/properties</directory>
+                <filtering>true</filtering>
+           </resource>
+           <resource>
+               <directory>src/main/resources</directory>
+               <excludes>
+                   <exclude>properties/**</exclude>
+               </excludes>
+           </resource>
+        </resources>
+    </build>
+</project>

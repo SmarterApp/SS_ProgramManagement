@@ -1,0 +1,368 @@
+@charset "UTF-8";
+/*.boxBtn {
+    margin: 0.5em 0.5em;
+}*/
+.masterDetailContainer .detail {
+    border: 1px inset #C0C0C0;
+    float: left;
+    padding: 15px;
+    width: 65%;
+}
+.dataTable, .propertyValueTable {
+    table-layout: fixed;
+}
+.dataTable td, .propertyValueTable td {
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+h5 {
+    font-size: 1.15em;
+}
+/*.dataTable tbody tr th {
+    text-align: left;
+}*/
+.dataTable td.normalSpace, .propertyValueTable td.normalSpace {
+    white-space: normal;
+}
+.propertyValueTable input, .propertyValueTable select {
+    -moz-box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+}
+.tableButtonGroup {
+    display: inline-table;
+}
+.dataTable .boxBtn, .propertyValueTable .boxBtn {
+    float: left;
+    height: 37px;
+    width: 40px;
+	margin-left: 4px;
+}
+.boxBtnTiny {
+    height: 45px;
+    width: 50px;
+}
+.boxBtnWide {
+    height: 45px;
+    width: 200px;
+	margin-bottom: 6px;
+}
+table .icon_sprite {
+    margin: 0;
+    padding: 0;
+}
+table .doubleActionColumn {
+    white-space: normal;
+    width: 10.5em;
+}
+table .actionColumn {
+    width: 70px;
+}
+#tableNav th {
+    border: 0 none;
+    width: 50%;
+}
+#tableNav input {
+    margin: 0;
+    width: 35px;
+}
+#tableNav tr *:first-child {
+    text-align: left;
+}
+#tableNav tr *:last-child {
+    text-align: right;
+}
+.ajax_indicator {
+    background-image: url("../images/ajax-indicator.gif");
+    background-position: 0 0;
+}
+.boxBtn:hover .ajax_indicator {
+    background-image: url("../images/ajax-indicator-green.gif");
+    background-position: 0 0;
+}
+.tableWrapper {
+    overflow: auto;
+    width: 100%;
+}
+div.ng-dirty, form.ng-dirty form .ng-dirty {
+    border: 1px solid #FF0000;
+}
+.formWrapper {
+    padding: 5px;
+}
+.formWrapper .dirtynag {
+    color: #FF0000;
+    font-weight: bold;
+    text-align: center;
+}
+textarea.large {
+    height: 400px;
+    width: 98%;
+}
+.propertyValueTable {
+    margin-top: 0.5em;
+    width: 100%;
+}
+.propertyValueTable th {
+    border: 1px solid #E4E4E4;
+    color: #2779AA;
+    padding: 0.3em;
+    vertical-align: middle;
+}
+.propertyValueTable td {
+    border: 1px solid #E4E4E4;
+    padding: 0.3em;
+    vertical-align: middle;
+}
+.propertyValueTable td.thumbnailColumn {
+    border: 1px solid #E4E4E4;
+    vertical-align: middle;
+}
+.propertyValueTable td div {
+    float: left;
+    text-align: left;
+}
+.propertyValueTable td div div {
+    float: none;
+    padding-bottom: 3px;
+}
+.propertyValueTable td {
+    text-align: left;
+}
+.propertyValueTable td div {
+    float: left;
+    text-align: left;
+}
+.propertyValueTable input {
+    width: 90%;
+}
+.propertyValueTable button.fileContainer {
+    margin-left: 0;
+    margin-top: 1.5em;
+    vertical-align: middle;
+    width: 75px;
+}
+.propertyValueTable input.fileContainerText {
+    margin-left: 0.5em;
+    vertical-align: middle;
+    width: 75px;
+}
+.hiddenfile {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+.expander-closed {
+    background-position: center bottom;
+}
+.expander-open {
+    background-position: center top;
+}
+tr.expander td {
+    white-space: normal;
+}
+
+a.skipToContent {
+	padding: 6px;
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	overflow:hidden;
+	border: 1px solid white;
+	color: white;
+	background: transparent;
+    -webkit-transition: top .1s ease-out, background .5s linear;
+    transition: top 1s ease-out, background 1s linear;
+    z-index: 100;
+}
+
+a.skipToContent:focus {
+    left:750px;
+    background:#3DB11A;
+    -webkit-transition: top .1s ease-in, background .5s linear;
+    transition: top .1s ease-in, background .5s linear;
+}
+
+a.skipToContent:blur {
+    left:-10000px;
+    -webkit-transition: top .1s ease-out, background .5s linear;
+    transition: top .1s ease-out, background .5s linear;
+}
+
+ul.propertyList {
+    list-style-type: none;
+    margin: 0;
+    text-align: left;
+}
+ul.propertyList li {
+    margin: 0;
+    padding: 2px;
+}
+.thumbnail {
+    margin: 0.1em;
+    padding: 0;
+    width: 11em;
+}
+.thumbnailColumn {
+    margin: 0;
+    padding: 0;
+    width: 12em;
+}
+td.thumbnailColumn {
+    margin: 0;
+    padding: 0;
+}
+.highlight {
+    background-color: #F4F4F4;
+}
+.assetGroupEditor {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+.assetPoolExpanded {
+    width: 69%;
+}
+.informational {
+    text-align: left;
+}
+.assetPoolSelector {
+    border: 1px solid #B8B7A4;
+    float: left;
+    padding: 4px;
+    width: 29%;
+}
+.assetPoolSelector button {
+    height: 40px;
+    width: 130px;
+}
+.tenantTypeSelector {
+    border: 1px solid #18567E;
+    padding: 4px;
+    text-align: center;
+    width: auto;
+}
+.tenantTypeSelector div.fieldGroup li {
+    width: 100%;
+}
+.tenantTypeSelector div.fieldGroup li span {
+    text-align: left;
+    width: 100%;
+}
+div.two-section {
+    float: left;
+    padding-left: 100px;
+    width: 27em;
+}
+div.EQ {
+    background-color: #FFFFFF;
+    font-family: monospace;
+    font-size: larger;
+}
+div.ADD {
+    background-color: #A6FFC6;
+    font-family: monospace;
+    font-size: larger;
+}
+div.DEL {
+    background-color: #FFA6C4;
+    font-family: monospace;
+    font-size: larger;
+}
+.centerDiv {
+    text-align:center;
+    display:inline-block;
+    margin-left:auto;
+    margin-right:auto;
+    vertical-align:middle;
+}
+.fieldGroup li {
+    vertical-align: top;
+    white-space: nowrap;
+}
+.fieldGroup li span {
+    /*float: left;*/
+    text-align: right;
+    width: 38%;
+}
+.fieldGroup label {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+.fieldGroup select, .fieldGroup input {
+    display: inline-block;
+    vertical-align: top;
+}
+.fieldGroup li span.tenant-auto-complete, .fieldGroup li span.wide-fields {
+    width: 100%;
+}
+.fieldGroup li span.tenant-auto-complete input {
+    width: 280px;
+}
+.fieldGroup a.fieldLink {
+    color: #0883B0;
+}
+.fieldGroup a.fieldLink:hover {
+    color: #CCCCCC;
+}
+.fieldGroup span.subGroup {
+    float: right;
+    margin-left: 0.7em;
+    padding: 0.1em;
+    width: 300px;
+}
+.dropdown-menu {
+    background-clip: padding-box;
+    background-color: #FFFFFF;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    float: left;
+    left: 0;
+    list-style: none outside none;
+    margin: 2px 0 0;
+    min-width: 160px;
+    padding: 5px 0;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+}
+.dropdown-menu > li {
+    display: block;
+    padding: 0;
+    width: 100%;
+}
+.dropdown-menu > li > a {
+    clear: both;
+    color: #333333;
+    display: block;
+    font-weight: normal;
+    line-height: 20px;
+    padding: 3px 20px;
+    text-align: left;
+    white-space: nowrap;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-color: #0883B0;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.ie8 select.wide-select:focus {
+    max-width: none;
+    width: auto;
+}
+
+.slide-menu{
+	display:none;
+}
+
+.footer .footerText {
+    color: white;
+    padding-top: 4px;
+}
+
+/* CSS Document */

@@ -1,0 +1,41 @@
+         
+<div data-ng-form="configForm" class="formWrapper secContent">
+    <div data-ng-show="configForm.$dirty" class="dirtynag">* Warning: You have unsaved changes</div>
+    <div class="fieldGroup">
+    <div class="boxWrap setup2">
+<div data-ng-repeat="error in errors">
+               <div><span class="icon_sprite icon_error error"></span>{{error}}</div>
+</div>
+    <h5 tabindex="-1">{{formAction}} Configuration Settings For {{propertyConfig.name}}</h5>
+        <ul>
+            <li>
+                <span> 
+                    <label class="control-label" for="name" title="Name">Name:</label>
+                    <input tabindex="0" type="text" alt="Name" data-ng-model="propertyConfig.name" />
+                </span>
+            </li>
+            <li>
+                <span> 
+                    <label class="control-label" for="environmentName" title="Environment">Environment:</label>
+                    <input tabindex="0" type="text" name="environmentName" alt="Environment" data-ng-model="propertyConfig.envName" />
+                </span>
+            </li>
+         </ul>
+         <div> 
+              <div data-mapvalueeditor data-form-name="configForm" data-properties="propertyConfig.properties" data-selected-cell-id="encrypt0"></div>
+         </div>  
+        <button tabindex="0" value="Save" title="Save" type="button" class="boxBtn" data-ng-show="configForm.$dirty" data-ng-click="save(propertyConfig,configForm)">
+            <span class="btnIcon icon_sprite icon_save2 ng-class:{ajax_indicator:savingIndicator}" aria-hidden="true"></span>
+            <span class="btnText">Save Configuration</span>
+        </button>
+        <button tabindex="0" value="Cancel" title="Cancel" type="button" class="boxBtn" data-ng-show="configForm.$dirty" data-ng-click="cancel()">
+            <span class="btnIcon icon_sprite icon_cancel2" aria-hidden="true"></span>
+            <span class="btnText">Cancel</span>
+        </button>
+        <button tabindex="0" value="Return to Search" title="Return to Search" type="button" class="boxBtn" data-ng-click="returnToSearch()">
+            <span class="btnIcon icon_sprite icon_reTry2 ng-class:{ajax_indicator:savingIndicator}" aria-hidden="true"></span>
+            <span class="btnText">Return to Search</span>
+        </button>
+    </div>
+</div>  
+</div>
