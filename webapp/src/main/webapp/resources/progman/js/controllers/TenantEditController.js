@@ -27,6 +27,21 @@ progman.controller('TenantEditController',['$scope','$state', 'loadedData', 'Ten
 			});
 		};
 
+		$scope.deactivate = function(tenant) {
+  			if (confirm("Are you sure you want to " + (tenant.active ? "deactivate" : "reactivate") + " this tenant? Multiple integrated systems may be affected.")) {
+				$scope.savingIndicator = true;
+	
+				TenantService.deactivateTenant(tenant).then(function(response){
+					$scope.savingIndicator = false;
+					$scope.errors = response.errors;
+					if ($scope.errors.length === 0) {
+						$scope.tenantForm.$setPristine();
+						$scope.tenant = response.data;
+					}
+				});
+  			};
+		};
+
 		$scope.cancel = function() {
 			$scope.actionButton = 'cancel';
 			$scope.tenantForm.$setPristine();

@@ -8,9 +8,13 @@
     <parent>
         <groupId>org.opentestsystem.shared</groupId>
         <artifactId>prog-mgmnt-parent</artifactId>
-        <version>R01.00.00</version>
+        <version>R01.00.01</version>
     </parent>
-    
+
+    <properties>
+        <rest.api.generator.version>0.0.3</rest.api.generator.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.opentestsystem.shared</groupId>
@@ -49,7 +53,7 @@
             <groupId>org.opentestsystem.shared</groupId>
             <artifactId>monitoring-alerting.client</artifactId>
             <version> ${sb11-mna-client.version}</version>
-        </dependency>  
+        </dependency> 
         
         <dependency>
             <groupId>org.opentestsystem.shared</groupId>

@@ -1,5 +1,5 @@
 
-	<div class="secContent" data-searchable data-search-url="'component'" data-search-params="searchParams" data-search-response="searchResponse" role="search">
+	<div class="secContent" data-searchable data-search-url="'component'" data-search-params="searchParams" data-search-response="searchResponse" data-broadcast-signal="initiate-component-search" role="search">
 		<div class="fieldGroup">
 <div class="boxWrap setup2">
 <div class="boxTitle"><h2 tabindex="-1">Component Search</h2></div>
@@ -25,7 +25,7 @@
 		<div data-pageable data-paging-info="searchResponse" data-search-params="searchParams" data-change-page="changePage()">
 			<table class="dataTable" data-accessible-table role="grid">
 				<colgroup>
-					<col class="actionColumn">
+					<col class="doubleActionColumn">
 					<col>
 				</colgroup>
 				<tr>
@@ -38,6 +38,9 @@
 							<button tabindex="-1" value="EditComponent" title="Edit Component" id="edit{{$index}}" data-ng-click="edit(component)" class="boxBtn">
 								<span class="btnIcon icon_sprite icon_edit2" aria-hidden="true"></span>
 							</button>
+                            <button tabindex="-1" value="RemoveComponent" title="Remove Component" id="remove{{$index}}" data-ng-click="remove(component)" class="boxBtn">
+                                <span class="btnIcon icon_sprite icon_delete2" aria-hidden="true"></span>
+                            </button>
 						</div>
 					</td>
 					<td>{{component.name}}</td>

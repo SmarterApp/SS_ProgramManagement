@@ -21,8 +21,7 @@ progman.controller('PropertyConfigListController', ['$scope', '$http','$state', 
   			if(confirm("Are you sure you want to delete this Configuration?")){
 				PropertyConfigService.deletePropertyConfig(propertyConfig.id).then( function(response) {
     				$scope.errors = response.errors;
-    				var index = $scope.searchResponse.searchResults.indexOf(propertyConfig);
-    				$scope.searchResponse.searchResults.splice(index, 1);
+                	$scope.$broadcast('initiate-config-search');
 				});
   			};
   		};

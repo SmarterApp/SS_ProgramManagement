@@ -10,7 +10,7 @@
 </div>
 <div class="secContent">
     <h5 tabindex="-1">{{formAction}} Tenant Information</h5>
-        <ul>
+        <ul style="max-width: 900px;">
             <li>
                 <span> 
                     <label class="control-label" for="tenant.name" title="Tenant Name">Tenant Name:</label>
@@ -33,6 +33,8 @@
             </li>
             <li>
                 <span> 
+                    <label class="control-label" for="tenant.active" title="Active">Active:</label>
+                    <input tabindex="0" type="checkbox" alt="Active" data-ng-model="tenant.active" />
                 </span>
             </li>
         </ul>  

@@ -33,13 +33,21 @@ progman.factory("ComponentService", function($http){
 				data: componentData
 			}).then(this.successHandler, this.errorHandler);
 	    },
-	    
-	    
+
+        deleteComponent : function(id) {
+        	var method = 'DELETE';
+    		var url = baseUrl + 'component/' + id;
+			return $http({
+				method: method,
+				url: url
+				}).then(this.successHandler, this.errorHandler);
+        },
+
 	    loadComponent : function(id) {
 	    		var url = baseUrl + 'component/'+ id + '/?_=' + Math.random();
    				return $http.get(url).then(this.successHandler, this.errorHandler);
 	    },
-	    
+
 	    loadAllComponents : function(pageSize) {
 	    	var queryString = '?sortKey=name&sortDir=asc&pageSize=' + (isNaN(pageSize) ? '10' : pageSize) + '&';
 	    	queryString += '_=' + Math.random();

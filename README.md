@@ -1,6 +1,39 @@
-# sb11-program-management
-
+# Welcome to the Program Management Component #
 The Program Management Component is responsible for configuration management and UI custom branding.
+
+## License ##
+This project is licensed under the [AIR Open Source License v1.0](http://www.smarterapp.org/documents/American_Institutes_for_Research_Open_Source_Software_License.pdf).
+
+## Getting Involved ##
+We would be happy to receive feedback on its capabilities, problems, or future enhancements:
+
+* For general questions or discussions, please use the [Forum](http://forum.opentestsystem.org/viewforum.php?f=14).
+* Use the **Issues** link to file bugs or enhancement requests.
+* Feel free to **Fork** this project and develop your changes!
+
+## Security
+Progman security is done differently than most SB11 components. It has no runtime dependency upon the Permissions component to do the Role to Permissions cross walk. Progman data has no applied Tenancy, and the following two permissions:
+ 
+* Progman Admin: allows you to modify (create, update, delete) the following:
+  * Tenant
+  * Compnent
+  * Component Configuration Properties
+  * Asset Groups (Branding Images)
+  * Component Branding)
+* Progman Read allows you to modify (create, update, delete) the above. Note: the read access is granted to most components for bootstrapping configuration values.
+
+
+Progman will look for the following roles and grant one or both of there permissions as specified:
+
+|Role Name |Permission1|Permission2|
+|----|-----------|------|
+|Adminstrator|Progman Read|Progman Admin|
+|Program Management Admin|Progman Read|Progman Admin|
+|Program Management Read|Progman Read|
+
+The above role to permission mapping is implemented by utilizing the Shared Security profile "special.role.required". This profile activates the RoleSpecificPermissionsService implementation of RolesAndPermissionsService interface. Progman specifies this active profile in the -Dspring.profiles.active config in tomcat. 
+
+This profile has a dependency upon a wired implementation of the RoleSpecificPermisionsResolver, which progman has implemented in ProgmanPermissionsResolver (where the above role--}permission binding is codified)
 
 ## Usage
 ### REST Module
@@ -19,18 +52,50 @@ The Webapp module requires a few things to be setup in order to run correctly:
 ### Persistence Module
 The Persistence module is a JAR artifact that is used by the REST module.  This module is responsible for persistence of application data.  It also encrypts and decrypts sensitive data.
 
-In order for encryption of data to work, the unlimited JCE security policy must be installed.  Copy encryption/UnlimitedJCEPolicy/local_policy.jar and encryption/UnlimitedJCEPolicy/US_export_policy.jar into your JDK's lib/security folder, replacing the existing files (please back up existing files).  See the README.txt in that directory for more details.
+A file named progman-bootstrap.properties should be included in the ${SB11_CONFIG_DIR}/progman directory. This file contains several groups of configurations as detailed below. The directory and file should have very restricted permissions as knowing the password will compromise any encrypted data in the database.  The file will only be read from this configuration location.  It cannot be placed on any other area of the classpath.  If this password is lost, any encrypted data will be unable to be decrypted.
 
-Data encryption requires an externally defined property to hold a secret password.  A file called pbe.properties should be placed into the ${SB11_CONFIG_DIR}/progman directory.  The single property should have the key of pm.pbe.pass.  The directory and file should have very restricted permissions as knowing the password will compromise any encrypted data in the database.  The file will only be read from this configuration location.  It cannot be placed on any other area of the classpath.  If this password is lost, any encrypted data will be unable to be decrypted.
+#### MnA properties
+* `progman.mna.description` - {a descriptive name for the component used as a display in MnA}
+* `mna.mnaUrl` - {url to the base context of the MNA REST application} 
+* `oauth.access.url` - {url to OAuth URL to OAM instance to allow client calls to POST to get an OAuth token for any 'machine to machine' calls requiring OAUTH}
+* `mna.oauth.client.id` - {OAuth Client id configured in OAM to allow get an OAuth token for the ‘batch' web service call to MnA}
+* `mna.oauth.client.secret` - {OAuth Client secret/password configured in OAM to allow get an OAuth token for the ‘batch' web service call to core standard}
 
-A mongo.properties file must also be created in the ${SB11_CONFIG_DIR} folder; an example file is in the module.
+#### Mongo Properties
+* `pm.mongo.hostname` - {hostname of the mongodb instance}
+* `pm.mongo.user` - {mongodb username}
+* `pm.mongo.password` - {mongodb password}
+* `pm.mongo.dbname` - {mongodb name}
 
-A logback.properties file must also be created in the ${SB11_CONFIG_DIR} folder; it's contents are:
-  
-* logfile.path=/path/to/wherever/logs/should/go/; e.g. users/yourname/dev/apache-tomcat-7.0.42/logs
-* base.context.name=program-management
-* base.package.name=org.opentestsystem.shared.progman
-* base.package.level=debug
+#### PBE properties
+Data encryption requires an externally defined property to hold a secret password.  A single property is required
+
+* `pm.pbe.pass.`
+
+In order for encryption of data to work, the unlimited JCE security policy must be installed.  Copy **encryption/UnlimitedJCEPolicy/local_policy.jar** and **encryption/UnlimitedJCEPolicy/US_export_policy.jar** into your JDK's lib/security folder, replacing the existing files (please back up existing files).  See the README.txt in that directory for more details.
+
+#### PM config properties
+* `pm.rest.service.endpoint` - {fully qualified URL to base context of the rest webservice}
+* `pm.rest.context.root` - {relative path to base context of the rest webservice}
+* `pm.minJs` - {whether to use minimized javascript in the browser}
+* `progman_resource_check_token_url
+* `mna.logger.level` - {level of logging that will be sent to the monitoring and alerting. it defaults to ERROR if not set}
+
+#### PM security properties
+* `pm.security.saml.keystore.user` - {the cert for accessing SSO server via https)
+* `pm.security.saml.keystore.pass` - {password for cert to access SSO server via https}
+* `pm.security.dir` - {file:///opt/... (fully qualified path to location of saml metatdata files)}
+* `pm.rest.saml.metadata.filename` - {name of the saml metadata file for the REST app contained in the security.dir configured above}
+* `pm.webapp.saml.metadata.filename` - {name of the saml metadata file for the WEBAPP app contained in the security.dir configured above}
+* `pm.security.idp` - {fully qualified path to the SAML 2 IDP}
+
+#### Logback configs
+logback configurations can also be placed in this file:
+
+* `logfile.path` - {/path/to/wherever/logs/should/go/; e.g. users/yourname/dev/apache-tomcat-7.0.42/logs}
+* `base.context.name` - program-management
+* `base.package.name` - org.opentestsystem.shared.progman
+* `base.package.level` - debug
 
 ### Domain Module
 The domain module contains all of the domain beans used to model the Program Management data as well as code used as search beans to create Mongo queries.  It is a JAR artifact that is used by other modules.

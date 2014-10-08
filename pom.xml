@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>prog-mgmnt-parent</artifactId>
-    <version>R01.00.00</version>
+    <version>R01.00.01</version>
     <name>Smarter Balanced #11 Program Management - Parent Project</name>
     <packaging>pom</packaging>
 
@@ -25,33 +26,10 @@
     </properties>
 
     <scm>
-        <connection>scm:git://github.com/DataRecognitionCorporation/sb11-program-management.git</connection>
-        <developerConnection>scm:git:git@github.com:DataRecognitionCorporation/sb11-program-management.git</developerConnection>
-        <url>https://github.com/DataRecognitionCorporation/sb11-program-management</url>
-    <tag>HEAD</tag>
-  </scm>
-
-    <!-- needed to bootstrap the parent -->
-    <repositories>
-        <!-- Project Artifactory Proxy of Remote Repositories, which also 
-            exposes SB11 artifacts when they are deployed -->
-        <repository>
-            <id>SB11-Remote-Mirror-Repo</id>
-            <name>SB11 Remote Mirror Repo</name>
-            <url>http://datarecognitioncorp.artifactoryonline.com/datarecognitioncorp/remote-repos</url>
-        </repository>
-    </repositories>
-
-    <!-- needed to bootstrap the parent -->
-    <pluginRepositories>
-        <!-- Project Artifactory Proxy of Remote Repositories, which also 
-            exposes SB11 artifacts when they are deployed -->
-        <pluginRepository>
-            <id>SB11-Remote-Mirror-Repo</id>
-            <name>SB11 Remote Mirror Repo</name>
-            <url>http://datarecognitioncorp.artifactoryonline.com/datarecognitioncorp/remote-repos</url>
-        </pluginRepository>
-    </pluginRepositories>
+        <connection>scm:hg:https://bitbucket.org/sbacoss/programmanagement_release</connection>
+        <developerConnection>scm:hg:https://bitbucket.org/sbacoss/programmanagement_release</developerConnection>
+        <url>https://bitbucket.org/sbacoss/programmanagement_release</url>
+    </scm>
 
     <dependencies>
         <dependency>
@@ -124,11 +102,11 @@
             <scope>test</scope>
         </dependency>       
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>${guava.version}</version>
+		</dependency>
 
         <dependency>
             <groupId>de.flapdoodle.embed</groupId>
@@ -210,12 +188,5 @@
         </dependency>
 
     </dependencies>
-    <distributionManagement>
-       <repository>
-            <id>central</id>
-            <name>libs-releases</name>
-            <url>http://airdev.artifactoryonline.com/airdev/libs-releases-local</url>
-        </repository>
-    </distributionManagement>
 
 </project>

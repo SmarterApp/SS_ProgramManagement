@@ -24,7 +24,7 @@
 }
 
 .dataTable .boxBtnDatepicker {
-    width:30px;
+    width:auto;
     height:25px;
 }
 	
@@ -75,7 +75,7 @@
     background: url("../images/glyphicons-halflings.png") no-repeat scroll right;
     background-position: -191px -120px;
     position: absolute;
-    margin: 5px 0px 0px 144px;
+    margin: 5px 0px 0px 124px;
     line-height: 14px;
     height: 14px;
     width: 14px;

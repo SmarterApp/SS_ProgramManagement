@@ -327,7 +327,7 @@ fieldset[disabled] .btn-info.active {
 .btn-group-vertical > .btn {
   position: relative;
   float: left;
-  display: none;
+/*   display: none; */
 }
 
 .btn-group .btn + .btn,

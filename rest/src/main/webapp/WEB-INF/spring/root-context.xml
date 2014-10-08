@@ -13,8 +13,10 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
     <beans:import resource="classpath:mna-context.xml" />
+    
     <beans:import resource="classpath:/security/samlmetadata-context.xml" />
     <beans:import resource="classpath:/security/securityContext.xml" />
+    
     <beans:import resource="classpath:mongo-factory-context.xml" />
     <beans:import resource="classpath:rest-context.xml" />
     <beans:import resource="classpath:persistence-context.xml" />

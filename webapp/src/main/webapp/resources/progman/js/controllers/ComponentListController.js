@@ -1,6 +1,6 @@
 
-progman.controller('ComponentListController', ['$scope', '$state', '$timeout', 
-     function ($scope, $state, $timeout ) {
+progman.controller('ComponentListController', ['$scope', '$state', '$timeout', 'ComponentService', 
+     function ($scope, $state, $timeout, ComponentService) {
 	 	if(!$state.current.searchParams) {
 	 		$scope.searchParams = {"name":"", "sortKey":"name", "sortDir":"asc", "currentPage": 1};
 	 	}else{
@@ -15,6 +15,17 @@ progman.controller('ComponentListController', ['$scope', '$state', '$timeout',
   		
   		$scope.edit = function(component) {
   			$state.transitionTo("componentedit", {componentId:component.id});
+  		};
+  		
+  		$scope.remove = function(component) { 			
+  			if(confirm("Are you sure you want to delete this component? Any tenant or asset group references to this component will be affected.")){
+  				ComponentService.deleteComponent(component.id).then( function(response) {
+    				$scope.errors = response.errors;
+                    if (!$scope.errors || $scope.errors.length == 0) {
+                    	$scope.$broadcast('initiate-component-search');
+                    }
+				});
+  			};
   		};
   		
   		$scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){ 

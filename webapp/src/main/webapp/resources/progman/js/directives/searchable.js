@@ -7,7 +7,8 @@ progman.directive("searchable",['$http','$parse', function($http, $parse){
 			searchUrl:'@',
 			searchParams:'=',
 			searchResponse:'=',
-			searchParamsPreprocess : '&'
+			searchParamsPreprocess : '&',
+			broadcastSignal:'@'
 		},
 		transclude :true,
 		templateUrl: 'resources/progman/partials/searchable.html',
@@ -25,7 +26,10 @@ progman.directive("searchable",['$http','$parse', function($http, $parse){
 					$scope.errors =[];
 					$scope.searchResponse = data;
 					$scope.searchResponse.currentPage = ($scope.searchResponse.currentPage *1) +1;
-					$scope.searchResponse.lastPage = parseInt((($scope.searchResponse.totalCount*1) / ($scope.searchResponse.pageSize*1))) + 1;
+					var tCount = $scope.searchResponse.totalCount*1;
+					var pSize = $scope.searchResponse.pageSize*1;
+					var lPage = parseInt(tCount / pSize);
+					$scope.searchResponse.lastPage = tCount % pSize > 0 ? lPage + 1 : lPage;
 				}).error(function (data, status, headers, config) {
 					$scope.errors =[];
 					for(var field in data.messages){
@@ -69,6 +73,12 @@ progman.directive("searchable",['$http','$parse', function($http, $parse){
 				this.search($scope.searchParams);
 			};
 			
+			$scope.search = this.search;
+			if ($scope.broadcastSignal) {
+			    $scope.$on($scope.broadcastSignal, function() {
+	                $scope.search($scope.searchParams);
+	            }); 
+			}
 			this.search($scope.searchParams);
 		},
 		link:function(scope, element, attrs){
@@ -110,6 +120,25 @@ progman.directive("searchOnClick", function(){
 	};
 });
 
+progman.directive("searchOnChange", function(){
+	return {
+		restrict:"A",
+		require:"^searchable",
+		scope:{
+			setParams:'&'
+		},
+		transclude:false,
+		link : function(scope, element, attrs, searchableController) {
+			element.bind("change", function(){
+				if(angular.isDefined(scope.setParams) && scope.setParams()){
+					searchableController.setFilter(scope.setParams());
+				}
+				searchableController.filterChange();
+			});
+		}
+	};
+});
+
 progman.directive("sortOnClick", function(){
 	return {
 		restrict:"A",
@@ -135,9 +164,9 @@ progman.directive("pageable", function(){
 		transclude :true,
 		require:"^searchable",
 		scope:{
-			pagingInfo:'=',
-			searchParams:'=',
-			changePage:'&'
+            pagingInfo:'=',
+            searchParams:'=',
+            changePage:'&'
 		},
 		templateUrl: 'resources/progman/partials/pageable-table.html',
 		controller: function($scope, $attrs) {
@@ -157,7 +186,10 @@ progman.directive("pageable", function(){
 				$scope.searchParams.currentPage = 0;
 				$scope.changePage();
 			};
-		},
+            $scope.totalPages = function(totalRecords, pageSize) {
+            	return Math.ceil(totalRecords / pageSize);
+            };
+        },
 		link:function(scope, element, attrs, searchableCtrl){
 			scope.changePage = function() {
 				searchableCtrl.changePage();

@@ -283,7 +283,7 @@ div.DEL {
 .fieldGroup li span {
     /*float: left;*/
     text-align: right;
-    width: 38%;
+/*     width: 38%; */
 }
 .fieldGroup label {
     display: inline-block;

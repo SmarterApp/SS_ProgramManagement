@@ -159,7 +159,7 @@ fieldset {
 }
 /* Indicate that 'label' will shift focus to the associated form element */
 label {
-	cursor: pointer;
+	cursor: default;
 }
 /* 
  * 1. Correct color not inheriting in IE6/7/8/9 

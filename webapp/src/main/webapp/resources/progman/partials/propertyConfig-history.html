@@ -47,7 +47,7 @@
                    </tr>
                    <tbody data-ng-repeat="audit in searchResponse.searchResults" data-expandable="audit">
 	                   <tr>
-	                       <td><span data-ng-click="toggle()" data-ng-keydown="keyToggle($event)" tabindex="0" data-ng-class="iconClass" title="Expand {{audit.auditTimestamp | date:'MMM-dd-yyyy hh:mm a'}}"></span></td>
+	                       <td><span data-ng-click="toggle()" data-ng-keydown="keyToggle($event)" tabindex="0" data-ng-class="iconClass" title="Expand {{audit.auditTimestamp | date:'MMM-dd-yyyy hh:mm a'}}" role="link"></span></td>
 	                       <td>{{audit.auditTimestamp | date:'MMM-dd-yyyy hh:mm a'}}</td>
 	                       <td>{{audit.auditUser}}</td>
 	                       <td>{{audit.auditType}} {{audit.expanded}}</td>

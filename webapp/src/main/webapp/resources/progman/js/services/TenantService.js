@@ -33,8 +33,7 @@ progman.factory("TenantService", function($http){
 				data: tenantData
 			}).then(this.successHandler, this.errorHandler);
 	    },
-	    
-	    
+
 	    loadTenant : function(id) {
 	    		var url = baseUrl + 'tenant/'+ id + '/?_=' + Math.random();
    				return $http.get(url).then(this.successHandler, this.errorHandler);

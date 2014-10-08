@@ -7,7 +7,7 @@
 			Total results found: {{pagingInfo.totalCount}}
 		</th>
 		<th scope="col">
-			<ul class="tablePage">
+			<ul class="tablePage" data-ng-hide="(totalPages(pagingInfo.totalCount, searchParams.pageSize) <= 0)">
 			    <li data-ng-show="pagingInfo.prevPageUrl" data-ng-click="firstPage()"><span class="tbNav tbfirst"></span> First</li>
 			 	<li data-ng-show="pagingInfo.prevPageUrl" data-ng-click="prevPage()"><span class="tbNav tbprev"></span> Previous</li>
 			 	<li>Page: <input type="text" data-ng-change="changePage()" data-ng-model="searchParams.currentPage"/></li>

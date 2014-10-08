@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.opentestsystem.shared</groupId>
         <artifactId>prog-mgmnt-parent</artifactId>
-        <version>R01.00.00</version>
+        <version>R01.00.01</version>
     </parent>
 
     <name>Smarter Balanced #11 Program Management - Webapp for the Component</name>
@@ -25,7 +25,7 @@
                 </property>
             </activation>
             <properties>
-                <classifier.classes />
+                <classifier.classes></classifier.classes>
             </properties>
         </profile>
     </profiles>
@@ -73,5 +73,5 @@
             </resource>
         </resources>
     </build>
-    
+
 </project>

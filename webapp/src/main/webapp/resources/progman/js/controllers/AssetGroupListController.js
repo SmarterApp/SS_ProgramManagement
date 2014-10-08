@@ -30,8 +30,9 @@ progman.controller('AssetGroupListController', ['$scope', '$state', '$timeout', 
   			if(confirm("Are you sure you want to delete this asset group?")){
 				AssetGroupService.deleteAssetGroup(assetGroup).then( function(response) {
     				$scope.errors = response.errors;
-    				var index = $scope.searchResponse.searchResults.indexOf(assetGroup);
-    				$scope.searchResponse.searchResults.splice(index, 1);
+                    if (!$scope.errors || $scope.errors.length == 0) {
+                    	$scope.$broadcast('initiate-assetgroup-search');
+                    }
 				});
   			};
   		};
