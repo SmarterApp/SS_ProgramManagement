@@ -19,11 +19,11 @@ Progman security is done differently than most SB11 components. It has no runtim
   * Compnent
   * Component Configuration Properties
   * Asset Groups (Branding Images)
-  * Component Branding)
+  * Component Branding
 * Progman Read allows you to modify (create, update, delete) the above. Note: the read access is granted to most components for bootstrapping configuration values.
 
 
-Progman will look for the following roles and grant one or both of there permissions as specified:
+Progman will look for the following roles and grant one or both of these permissions as specified:
 
 |Role Name |Permission1|Permission2|
 |----|-----------|------|
@@ -68,7 +68,7 @@ A file named progman-bootstrap.properties should be included in the ${SB11_CONFI
 * `pm.mongo.dbname` - {mongodb name}
 
 #### PBE properties
-Data encryption requires an externally defined property to hold a secret password.  A single property is required
+Data encryption requires an externally defined property to hold a secret password. Password-Based Encryption (PBE) is used to encrypt any sensitive values in the key value configurations. A salt is recommended but not required (the key must exist but the value may be left blank):
 
 * `pm.pbe.pass.`
 
@@ -78,7 +78,7 @@ In order for encryption of data to work, the unlimited JCE security policy must 
 * `pm.rest.service.endpoint` - {fully qualified URL to base context of the rest webservice}
 * `pm.rest.context.root` - {relative path to base context of the rest webservice}
 * `pm.minJs` - {whether to use minimized javascript in the browser}
-* `progman_resource_check_token_url
+* `progman_resource_check_token_url` - {URL of OpenAM OAuth token check}
 * `mna.logger.level` - {level of logging that will be sent to the monitoring and alerting. it defaults to ERROR if not set}
 
 #### PM security properties
