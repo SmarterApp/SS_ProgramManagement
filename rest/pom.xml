@@ -8,11 +8,11 @@
     <parent>
         <groupId>org.opentestsystem.shared</groupId>
         <artifactId>prog-mgmnt-parent</artifactId>
-        <version>R01.00.02</version>
+        <version>0.0.3-SNAPSHOT</version>
     </parent>
 
     <properties>
-        <rest.api.generator.version>0.0.3</rest.api.generator.version>
+        <rest.api.generator.version>0.0.3-SNAPSHOT</rest.api.generator.version>
     </properties>
 
     <dependencies>

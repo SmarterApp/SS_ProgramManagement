@@ -12,31 +12,44 @@
 
           <!-- Provider of default SAML Context -->
 
-    <bean id="contextProvider" class="org.springframework.security.saml.context.SAMLContextProviderImpl">
-    </bean>
-
-    <bean  id="metadataDelegate"  class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
-    <constructor-arg>
-        <bean class="org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider">
+    <beans profile="server.loadbalanced" > 
+       <bean id="contextProvider" class="org.springframework.security.saml.context.SAMLContextProviderLB">
+            <property name="scheme" value="${progman.loadbalanced.url.scheme}"/>
+            <property name="serverName" value="${progman.loadbalanced.server.name}"/>
+            <property name="serverPort" value="${progman.loadbalanced.server.port}"/>
+            <property name="includeServerPortInRequestURL" value="${progman.loadbalanced.includeServerPortInRequestURL}"/>
+            <property name="contextPath" value="${progman.loadbalanced.server.rest.contextpath}"/>
+        </bean>
+    </beans>
+    
+    <beans profile="server.singleinstance"> 
+        <bean id="contextProvider" class="org.springframework.security.saml.context.SAMLContextProviderImpl"></bean>
+    </beans>
+    
+    <beans>
+        <bean  id="metadataDelegate"  class="org.springframework.security.saml.metadata.ExtendedMetadataDelegate">
             <constructor-arg>
-                <value type="java.io.File">${pm.security.dir}/${pm.rest.saml.metadata.filename}</value>
+                <bean class="org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider">
+                    <constructor-arg>
+                        <value type="java.io.File">${pm.security.dir}/${pm.rest.saml.metadata.filename}</value>
+                    </constructor-arg>
+                    <property name="parserPool" ref="parserPool"/>
+                </bean>
             </constructor-arg>
-            <property name="parserPool" ref="parserPool"/>
+            <constructor-arg>
+                <bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
+                   <property name="local" value="true"/>
+                   <property name="alias" value="progman_rest"/>
+                   <property name="securityProfile" value="metaiop"/>
+                   <property name="sslSecurityProfile" value="pkix"/>
+                   <property name="signingKey" value="${pm.security.saml.keystore.user}"/>
+                   <property name="encryptionKey" value="${pm.security.saml.keystore.user}"/>
+                   <property name="requireArtifactResolveSigned" value="false"/>
+                   <property name="requireLogoutRequestSigned" value="false"/>
+                   <property name="requireLogoutResponseSigned" value="false"/>
+                   <property name="idpDiscoveryEnabled" value="false"/>
+                </bean>
+            </constructor-arg>
         </bean>
-    </constructor-arg>
-    <constructor-arg>
-        <bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
-           <property name="local" value="true"/>
-           <property name="alias" value="progman_rest"/>
-           <property name="securityProfile" value="metaiop"/>
-           <property name="sslSecurityProfile" value="pkix"/>
-           <property name="signingKey" value="${pm.security.saml.keystore.user}"/>
-           <property name="encryptionKey" value="${pm.security.saml.keystore.user}"/>
-           <property name="requireArtifactResolveSigned" value="false"/>
-           <property name="requireLogoutRequestSigned" value="false"/>
-           <property name="requireLogoutResponseSigned" value="false"/>
-           <property name="idpDiscoveryEnabled" value="false"/>
-        </bean>
-    </constructor-arg>
-</bean>
+    </beans>
 </beans>
