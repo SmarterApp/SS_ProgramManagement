@@ -3,14 +3,14 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>prog-mgmnt-parent</artifactId>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>R01.00.03</version>
     <name>Smarter Balanced #11 Program Management - Parent Project</name>
     <packaging>pom</packaging>
 
     <parent>
         <groupId>org.opentestsystem.shared</groupId>
         <artifactId>shared-build-parent</artifactId>
-        <version>0.0.7-SNAPSHOT</version>
+        <version>0.0.7</version>
     </parent>
 
     <modules>
@@ -22,7 +22,7 @@
 
     <properties>
         <mockito.version>1.9.5</mockito.version>
-        <sb11-shared-security.version>0.0.1-SNAPSHOT</sb11-shared-security.version>
+        <sb11-shared-security.version>0.0.1</sb11-shared-security.version>
     </properties>
 
     <scm>
