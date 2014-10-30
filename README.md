@@ -12,15 +12,15 @@ We would be happy to receive feedback on its capabilities, problems, or future e
 * Feel free to **Fork** this project and develop your changes!
 
 ## Security
-Progman security is done differently than most SB11 components. It has no runtime dependency upon the Permissions component to do the Role to Permissions cross walk. Progman data has no applied Tenancy, and the following two permissions:
+Progman security is done differently than most SmarterApp components. It has no runtime dependency upon the Permissions component to do the Role to Permissions cross walk. Progman data has no applied Tenancy, and the following two permissions:
  
 * Progman Admin: allows you to modify (create, update, delete) the following:
-  * Tenant
-  * Compnent
-  * Component Configuration Properties
-  * Asset Groups (Branding Images)
-  * Component Branding
-* Progman Read allows you to modify (create, update, delete) the above. Note: the read access is granted to most components for bootstrapping configuration values.
+    * Tenant
+    * Compnent
+    * Component Configuration Properties
+    * Asset Groups (Branding Images)
+    * Component Branding
+* Progman Read allows you to modify (create, update, delete) the above. *Note*: the read access is granted to most components for bootstrapping configuration values.
 
 
 Progman will look for the following roles and grant one or both of these permissions as specified:
