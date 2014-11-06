@@ -90,12 +90,12 @@ In order for encryption of data to work, the unlimited JCE security policy must 
 * `pm.security.idp` - {fully qualified path to the SAML 2 IDP}
 
 #### Logback configs
-logback configurations can also be placed in this file:
+logback configurations can also be placed in this file. These are optional and can be configured in the application's existing logback.xml file instead:
 
-* `logfile.path` - {/path/to/wherever/logs/should/go/; e.g. users/yourname/dev/apache-tomcat-7.0.42/logs}
-* `base.context.name` - program-management
-* `base.package.name` - org.opentestsystem.shared.progman
-* `base.package.level` - debug
+* `logfile.path` - {/path/to/wherever/logs/should/go/; e.g. /usr/local/tomcat/logs}
+* `app.base.package.name` - program-management
+* `app.context.name` - org.opentestsystem.shared.progman
+* `app.base.package.loglevel` - debug
 
 ### Domain Module
 The domain module contains all of the domain beans used to model the Program Management data as well as code used as search beans to create Mongo queries.  It is a JAR artifact that is used by other modules.
