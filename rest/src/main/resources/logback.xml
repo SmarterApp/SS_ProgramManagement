@@ -5,4 +5,6 @@
     <property scope="local" name="app.base.package.loglevel" value="debug" />
     <property scope="local" name="mna.appender.active" value="true" />
 	<include resource="logback-included-common-config.xml" />
+    <!-- uncomment the following line to stop logging the rest layer performance metric to mna -->
+    <!--  <logger name="PERFORMANCE_REST" additivity="false" level="ERROR"/>-->
 </configuration>
