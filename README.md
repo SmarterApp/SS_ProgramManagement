@@ -60,6 +60,8 @@ A file named progman-bootstrap.properties should be included in the ${SB11_CONFI
 * `oauth.access.url` - {url to OAuth URL to OAM instance to allow client calls to POST to get an OAuth token for any 'machine to machine' calls requiring OAUTH}
 * `mna.oauth.client.id` - {OAuth Client id configured in OAM to allow get an OAuth token for the ‘batch' web service call to MnA}
 * `mna.oauth.client.secret` - {OAuth Client secret/password configured in OAM to allow get an OAuth token for the ‘batch' web service call to core standard}
+* `mna.oauth.batch.account=` - {Username (email address) of MNA client user used for authenticating into MNA and logging metrics information}
+* `mna.oauth.batch.password=` - {Password of MNA client user}
 
 #### Mongo Properties
 * `pm.mongo.hostname` - {hostname of the mongodb instance}

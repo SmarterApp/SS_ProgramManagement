@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.opentestsystem.shared</groupId>
     <artifactId>prog-mgmnt-parent</artifactId>
-    <version>R01.00.06</version>
+    <version>R01.00.07</version>
   </parent>
 
   <name>Smarter Balanced #11 Program Management - Reusable Domain Model</name>
