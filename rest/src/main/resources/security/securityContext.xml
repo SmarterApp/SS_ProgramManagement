@@ -22,6 +22,7 @@
     </security:global-method-security>
 
       <!-- Unsecured pages -->
+     <security:http security="none" pattern="/api/**"/>
     <security:http security="none" pattern="/saml/web/**"/>
     <security:http security="none" pattern="/thankyou"/>
     <security:http security="none" pattern="/favicon.ico"/>
