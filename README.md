@@ -16,7 +16,7 @@ Progman security is done differently than most SmarterApp components. It has no 
  
 * Progman Admin: allows you to modify (create, update, delete) the following:
     * Tenant
-    * Compnent
+    * Component
     * Component Configuration Properties
     * Asset Groups (Branding Images)
     * Component Branding
@@ -90,6 +90,16 @@ In order for encryption of data to work, the unlimited JCE security policy must 
 * `pm.rest.saml.metadata.filename` - {name of the saml metadata file for the REST app contained in the security.dir configured above}
 * `pm.webapp.saml.metadata.filename` - {name of the saml metadata file for the WEBAPP app contained in the security.dir configured above}
 * `pm.security.idp` - {fully qualified path to the SAML 2 IDP}
+
+#### Clustered Environment properties
+These are *optional* properties which are used when configuring a clustered environment behind a load balancer (LB). To activate clustered environment support, simply change the active profile setenv as follows: change `spring.profiles.active` from `server.singleinstance` to `server.loadbalanced`. Furthermore, you will need to set these key/value pairs appropriately: 
+
+* `progman.loadbalanced.url.scheme` - {this should be http or https} 
+* `progman.loadbalanced.server.name` - {the loadbalancer’s name} 
+* `progman.loadbalanced.server.port` - {if your server requires a port, include it here, otherwise put 80 in as the default} 
+* `progman.loadbalanced.includeServerPortInRequestURL` - {boolean true/false value which indicates if the port should be included to resolve the server} 
+* `progman.loadbalanced.server.rest.contextpath` - {REST context name. e.g.: "/progman.rest"} 
+* `progman.loadbalanced.server.webapp.contextpath` - {webapp context name. e.g.: "/progman.webapp". Leave this blank if you are using ROOT as webapp context name} 
 
 #### Logback configs
 logback configurations can also be placed in this file. These are optional and can be configured in the application's existing logback.xml file instead:
