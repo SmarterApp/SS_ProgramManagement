@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.opentestsystem.shared</groupId>
         <artifactId>prog-mgmnt-parent</artifactId>
-        <version>R01.00.15</version>
+        <version>R01.00.17</version>
     </parent>
 
     <name>Smarter Balanced #11 Program Management - Webapp for the Component</name>
