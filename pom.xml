@@ -25,7 +25,7 @@
         <rest-api-generator.version>0.0.3-SNAPSHOT</rest-api-generator.version>
         <sb11-mna-client.version>3.0.0</sb11-mna-client.version>
         <sb11-shared-code.version>3.0.0</sb11-shared-code.version>
-        <sb11-shared-security.version>0.0.1-SNAPSHOT</sb11-shared-security.version>
+        <sb11-shared-security.version>3.0.0</sb11-shared-security.version>
     </properties>
 
     <scm>
