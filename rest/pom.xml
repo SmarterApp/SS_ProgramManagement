@@ -12,7 +12,7 @@
     </parent>
 
     <properties>
-        <rest.api.generator.version>0.0.3-SNAPSHOT</rest.api.generator.version>
+        <rest.api.generator.version>3.1.0.RELEASE</rest.api.generator.version>
     </properties>
 
     <dependencies>
